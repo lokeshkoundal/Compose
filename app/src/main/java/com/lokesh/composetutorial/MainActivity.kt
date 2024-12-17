@@ -1,16 +1,12 @@
 package com.lokesh.composetutorial
 
-import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -20,31 +16,39 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.blur
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.lokesh.composetutorial.network.TweetApi
 import com.lokesh.composetutorial.ui.theme.ComposeTutorialTheme
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    @Inject
+    lateinit var tweetApi: TweetApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val res = tweetApi.getAllData()
+            Log.d("Loki",res.body().toString())
+        }
         setContent {
             ComposeTutorialTheme {
                 var name by remember {
                     mutableStateOf("")
                 }
-
                 var names by remember {
                     mutableStateOf(listOf<String>())
                 }
@@ -58,7 +62,7 @@ class MainActivity : ComponentActivity() {
 
                         OutlinedTextField(value = name , onValueChange = {text->
                             name = text
-                        }, placeholder = { Text(text = "Emter your name")},
+                        }, placeholder = { Text(text = "Enter your name")},
                             label = { Text(text = "Username")},
                             modifier = Modifier.weight(1f))
 
