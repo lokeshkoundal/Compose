@@ -58,6 +58,8 @@ dependencies {
     //hilt
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
+    implementation(libs.androidx.hilt.navigation.compose)
+//    implementation(libs.androidx.hilt.common)
 
     //retrofit
     implementation(libs.retrofit)
@@ -77,9 +79,6 @@ dependencies {
 
     //navigation
     implementation(libs.androidx.navigation.compose)
-
-
-
 
 
     implementation(libs.androidx.core.ktx)

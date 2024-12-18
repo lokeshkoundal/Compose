@@ -1,5 +1,6 @@
 package com.lokesh.composetutorial
 
+import com.lokesh.composetutorial.repository.TweetRepository
 import com.lokesh.composetutorial.network.TweetApi
 import dagger.Module
 import dagger.Provides
@@ -26,5 +27,11 @@ class AppModule {
     @Provides
     fun providesTweetApi(retrofit: Retrofit):TweetApi{
         return retrofit.create(TweetApi::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun providesTweetRepository(tweetApi: TweetApi): TweetRepository {
+        return TweetRepository(tweetApi)
     }
 }

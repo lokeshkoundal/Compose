@@ -1,7 +1,9 @@
 [versions]
 agp = "8.5.0"
-hiltAndroid = "2.48.1"
-kotlin = "1.9.0"
+hiltAndroid = "2.51.1"
+hiltLifecycleViewmodel = "1.0.0"
+hiltNavigationCompose = "1.2.0"
+kotlin = "1.9.24"
 coreKtx = "1.13.1"
 junit = "4.13.2"
 junitVersion = "1.2.1"
@@ -15,11 +17,15 @@ loggingInterceptor = "4.10.0"
 kotlinxCoroutinesCore = "1.8.1"
 lifecycleViewmodelKtx = "2.8.7"
 navigationSafeArgsGradlePlugin = "2.8.4"
+hiltCommon = "1.2.0"
 
 
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
+#androidx-hilt-common = { group = "androidx.hilt", name = "hilt-common", version.ref = "hiltCommon" }
+
 androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleRuntimeKtx" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
