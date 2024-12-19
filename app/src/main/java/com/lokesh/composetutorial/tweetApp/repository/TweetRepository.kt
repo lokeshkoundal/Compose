@@ -1,7 +1,7 @@
-package com.lokesh.composetutorial.repository
+package com.lokesh.composetutorial.tweetApp.repository
 
-import com.lokesh.composetutorial.network.Tweet
-import com.lokesh.composetutorial.network.TweetApi
+import com.lokesh.composetutorial.tweetApp.network.Tweet
+import com.lokesh.composetutorial.tweetApp.network.TweetApi
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -24,7 +24,7 @@ class TweetRepository @Inject constructor(private val tweetApi: TweetApi){
     }
 
     suspend fun getTweets(category: String){
-        val res = tweetApi.getTweetsByCategory("tweets[?@.category==\"${category}\")]")
+        val res = tweetApi.getTweetsByCategory("tweets[?(@.category==\"${category}\")]")
         if(res.isSuccessful && res.body() != null){
             _tweets.emit(res.body()!!)
         }

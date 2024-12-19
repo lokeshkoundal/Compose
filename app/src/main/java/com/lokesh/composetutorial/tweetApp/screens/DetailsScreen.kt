@@ -1,4 +1,4 @@
-package com.lokesh.composetutorial.screens
+package com.lokesh.composetutorial.tweetApp.screens
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
@@ -14,9 +14,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.lokesh.composetutorial.viewModels.DetailsVM
-// import androidx.hilt.navigation.compose.hiltViewModel
+import com.lokesh.composetutorial.tweetApp.viewModels.DetailsVM
+
 
 @Composable
 fun DetailsScreen(){

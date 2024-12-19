@@ -1,4 +1,4 @@
-package com.lokesh.composetutorial.network
+package com.lokesh.composetutorial.tweetApp.network
 
 data class Tweet(
     val category: String,

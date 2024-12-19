@@ -1,10 +1,10 @@
-package com.lokesh.composetutorial.viewModels
+package com.lokesh.composetutorial.tweetApp.viewModels
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.lokesh.composetutorial.network.Tweet
-import com.lokesh.composetutorial.repository.TweetRepository
+import com.lokesh.composetutorial.tweetApp.network.Tweet
+import com.lokesh.composetutorial.tweetApp.repository.TweetRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DetailsVM @Inject constructor(private val tweetRepository: TweetRepository,
-    private val savedStateHandle: SavedStateHandle) : ViewModel() {
+                                    private val savedStateHandle: SavedStateHandle) : ViewModel() {
 
     val tweets:StateFlow<List<Tweet>> = tweetRepository.tweets
 

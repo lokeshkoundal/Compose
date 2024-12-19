@@ -1,4 +1,4 @@
-package com.lokesh.composetutorial.screens
+package com.lokesh.composetutorial.tweetApp.screens
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavType
