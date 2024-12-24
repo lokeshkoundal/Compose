@@ -57,6 +57,7 @@ dependencies {
 
     //hilt
     implementation(libs.hilt.android)
+    implementation(libs.androidx.runtime.livedata)
     kapt(libs.hilt.android.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
 //    implementation(libs.androidx.hilt.common)
@@ -75,7 +76,7 @@ dependencies {
     // ViewModel and LiveData
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.lifecycle.livedata.ktx)
-    implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.androidx.lifecycle.viewmodel.compose    )
 
     //navigation
     implementation(libs.androidx.navigation.compose)
