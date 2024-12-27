@@ -76,7 +76,7 @@ dependencies {
     // ViewModel and LiveData
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.lifecycle.livedata.ktx)
-    implementation(libs.androidx.lifecycle.viewmodel.compose    )
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
 
     //navigation
     implementation(libs.androidx.navigation.compose)

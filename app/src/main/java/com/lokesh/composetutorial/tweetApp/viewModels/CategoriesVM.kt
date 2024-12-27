@@ -4,19 +4,29 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.lokesh.composetutorial.tweetApp.repository.TweetRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.TimeoutCancellationException
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withTimeout
 import javax.inject.Inject
 
 
 @HiltViewModel
 class CategoriesVM @Inject constructor(private val tweetRepository: TweetRepository) : ViewModel() {
 
-    val categories : StateFlow<List<String>> = tweetRepository.categories
+    var categories : StateFlow<List<String>> = tweetRepository.categories
 
     init {
         viewModelScope.launch {
-            tweetRepository.getCategories()
+            try{
+                withTimeout(4000){
+                    tweetRepository.getCategories()
+                }
+            }catch (e: TimeoutCancellationException){
+                categories = MutableStateFlow(emptyList())
+            }
+
         }
     }
 

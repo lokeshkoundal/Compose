@@ -31,7 +31,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.lokesh.composetutorial.audioPlayerApp.ui.HomeScreen
 import com.lokesh.composetutorial.tweetApp.screens.App
 import com.lokesh.composetutorial.tweetApp.viewModels.MainVM
 import com.lokesh.composetutorial.ui.theme.ComposeTutorialTheme
@@ -68,7 +70,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             ComposeTutorialTheme {
 //                CategoryScreen()
-                ShowAirplaneModeDialog(viewModel = mainVM)
+//                ShowAirplaneModeDialog(viewModel = mainVM)
+                HomeScreen()
 //                App()
             }
         }
@@ -78,6 +81,12 @@ class MainActivity : ComponentActivity() {
         super.onDestroy()
         unregisterReceiver(airplaneModeReceiver)
     }
+}
+
+@Preview(showSystemUi = true, showBackground = true)
+@Composable
+fun HomeScreenPreview(){
+    HomeScreen()
 }
 
 @Composable
