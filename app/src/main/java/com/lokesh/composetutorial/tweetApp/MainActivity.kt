@@ -36,7 +36,7 @@ import androidx.compose.ui.unit.dp
 import com.lokesh.composetutorial.audioPlayerApp.ui.HomeScreen
 import com.lokesh.composetutorial.tweetApp.screens.App
 import com.lokesh.composetutorial.tweetApp.viewModels.MainVM
-import com.lokesh.composetutorial.ui.theme.ComposeTutorialTheme
+import com.lokesh.composetutorial.ui.theme.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -68,11 +68,11 @@ class MainActivity : ComponentActivity() {
         IntentFilter(Intent.ACTION_AIRPLANE_MODE_CHANGED))
 
         setContent {
-            ComposeTutorialTheme {
+            AppTheme {
 //                CategoryScreen()
 //                ShowAirplaneModeDialog(viewModel = mainVM)
-                HomeScreen()
-//                App()
+//                HomeScreen()
+                App()
             }
         }
     }
@@ -116,7 +116,7 @@ fun ShowAirplaneModeDialog(viewModel: MainVM) {
 
 @Composable
 fun Tutorial(){
-    ComposeTutorialTheme {
+    AppTheme  {
         var name by remember {
             mutableStateOf("")
         }
