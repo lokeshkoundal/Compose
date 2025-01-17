@@ -13,8 +13,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
 import com.lokesh.composetutorial.audioPlayerApp.ui.HomeScreen
+import com.lokesh.composetutorial.instagram.graphs.RootNavGraph
 import com.lokesh.composetutorial.instagram.ui.composeElements.BottomNavigationBar
 import com.lokesh.composetutorial.instagram.ui.ui.theme.ComposeTutorialTheme
 import kotlinx.serialization.Serializable
@@ -39,21 +41,13 @@ class InstagramActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             ComposeTutorialTheme {
-
                 val navController = rememberNavController()
+                NavHost(navController = navController, startDestination = "home"){
+                    navigation(startDestination = "login", route = "auth"){
 
-                Scaffold(modifier = Modifier.fillMaxSize(),
-                    bottomBar = {
-                        BottomNavigationBar(navController = navController,
-                            currentRoute = "x",
-                            onItemSelected = {})
-                    }) { innerPadding ->
-
-                    InstagramNavHost(
-                        navController = navController,
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                    }
                 }
+//                RootNavGraph(rememberNavController())
             }
         }
     }
@@ -63,7 +57,7 @@ class InstagramActivity : ComponentActivity() {
 fun InstagramNavHost(navController: NavHostController, modifier: Modifier) {
     NavHost(navController = navController,
         startDestination = Home){
-        composable<Home>{ HomeScreen() }
+        composable<Home>{  }
         composable<Search>{}
         composable<Add>{}
         composable<Reels>{}

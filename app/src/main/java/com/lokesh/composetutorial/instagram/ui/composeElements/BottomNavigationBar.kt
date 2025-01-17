@@ -12,12 +12,7 @@ fun BottomNavigationBar(
     currentRoute: String?,
     onItemSelected: (Screen) -> Unit
 ) {
+    val items = listOf(Screen.Home, Screen.Search, Screen.Add, Screen.Reels, Screen.Profile)
 
-    NavigationBar {
-        val items = listOf(Screen.Home, Screen.Search, Screen.Add, Screen.Reels, Screen.Profile)
 
-        items.forEach { screen ->
-
-        }
-    }
 }
