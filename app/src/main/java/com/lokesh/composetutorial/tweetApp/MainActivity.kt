@@ -33,7 +33,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.lokesh.composetutorial.audioPlayerApp.ui.HomeScreen
+import com.lokesh.composetutorial.animation.AnimationScreen
 import com.lokesh.composetutorial.tweetApp.screens.App
 import com.lokesh.composetutorial.tweetApp.viewModels.MainVM
 import com.lokesh.composetutorial.ui.theme.AppTheme
@@ -72,7 +72,8 @@ class MainActivity : ComponentActivity() {
 //                CategoryScreen()
 //                ShowAirplaneModeDialog(viewModel = mainVM)
 //                HomeScreen()
-                App()
+//                App()
+                AnimationScreen()
             }
         }
     }
@@ -86,7 +87,7 @@ class MainActivity : ComponentActivity() {
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
 fun HomeScreenPreview(){
-    HomeScreen()
+//    HomeScreen()
 }
 
 @Composable
