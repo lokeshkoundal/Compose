@@ -34,6 +34,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.lokesh.composetutorial.animation.AnimationScreen
+import com.lokesh.composetutorial.calculator.Calculator
 import com.lokesh.composetutorial.tweetApp.screens.App
 import com.lokesh.composetutorial.tweetApp.viewModels.MainVM
 import com.lokesh.composetutorial.ui.theme.AppTheme
@@ -68,13 +69,14 @@ class MainActivity : ComponentActivity() {
         IntentFilter(Intent.ACTION_AIRPLANE_MODE_CHANGED))
 
         setContent {
-            AppTheme {
+//            AppTheme {
 //                CategoryScreen()
 //                ShowAirplaneModeDialog(viewModel = mainVM)
 //                HomeScreen()
 //                App()
-                AnimationScreen()
-            }
+//                AnimationScreen()
+//            }
+            
         }
     }
 

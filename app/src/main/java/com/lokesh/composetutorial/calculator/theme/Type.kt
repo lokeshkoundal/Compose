@@ -1,4 +1,4 @@
-package com.lokesh.composetutorial.instagram.ui.ui.theme
+package com.lokesh.composetutorial.calculator.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

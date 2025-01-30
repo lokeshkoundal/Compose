@@ -1,6 +1,6 @@
 package com.lokesh.composetutorial.animation
 
-import android.widget.Space
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColor
 import androidx.compose.animation.core.LinearEasing
@@ -9,8 +9,13 @@ import androidx.compose.animation.core.animateIntAsState
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.animation.slideOutVertically
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -22,9 +27,11 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -38,7 +45,8 @@ import androidx.compose.ui.unit.dp
 fun AnimationScreen(){
 
 //    AnimateVisibility()
-    AnimateColorAndShape()
+//    AnimateColorAndShape()
+    AnimatedContent()
 }
 
 
@@ -85,12 +93,12 @@ fun AnimateColorAndShape(){
             )
         )
 
-        Button(onClick = {
-            isRound = !isRound
-        }) {
+        Button(onClick = { isRound = !isRound }) {
             Text(text = "Toggle")
         }
+
         Spacer(Modifier.height(60.dp))
+
         val borderRadiusState by animateIntAsState(
             targetValue =  if(isRound) 100 else 0,
             animationSpec = tween(
@@ -113,18 +121,37 @@ fun AnimateColorAndShape(){
 @Composable
 fun AnimatedContent(){
     var count by remember {
-        mutableStateOf(0)
+        mutableIntStateOf(0)
     }
-    Column(verticalArrangement = Arrangement.Center,
+    Column(modifier =  Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally) {
 
-        Button(onClick = {count++}) {
+        Button(onClick = {count--}) {
             Text("Decrease")
         }
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        AnimatedContent()
+        AnimatedContent(targetState = count,
+            transitionSpec = {
+                if(targetState>initialState){
+                    (slideInVertically { fullHeight -> fullHeight  } + fadeIn()).togetherWith(
+                        slideOutVertically { fullHeight -> -fullHeight } + fadeOut())
+                }else{
+                    (slideInVertically { fullHeight -> -fullHeight } + fadeIn()).togetherWith(
+                        slideOutVertically { fullHeight -> fullHeight } + fadeOut())
+                }
+            }){
+            Box(modifier = Modifier.size(180.dp), contentAlignment = Alignment.Center){
+                Text(text = it.toString(), style = MaterialTheme.typography.headlineLarge)
+            }
+        }
+
+        Spacer(modifier = Modifier.height(20.dp))
+
+        Button(onClick = {count++}) {
+            Text("Increase")
+        }
 
     }
 }
