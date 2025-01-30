@@ -9,6 +9,7 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -31,10 +32,15 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.DarkGray
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.lokesh.composetutorial.animation.AnimationScreen
 import com.lokesh.composetutorial.calculator.Calculator
+import com.lokesh.composetutorial.calculator.model.CalculatorViewModel
+import com.lokesh.composetutorial.calculator.theme.MediumGray
 import com.lokesh.composetutorial.tweetApp.screens.App
 import com.lokesh.composetutorial.tweetApp.viewModels.MainVM
 import com.lokesh.composetutorial.ui.theme.AppTheme
@@ -73,10 +79,21 @@ class MainActivity : ComponentActivity() {
 //                CategoryScreen()
 //                ShowAirplaneModeDialog(viewModel = mainVM)
 //                HomeScreen()
-//                App()
+                App()
 //                AnimationScreen()
 //            }
-            
+            val calculatorViewModel = viewModel<CalculatorViewModel>()
+            val state = calculatorViewModel.state
+            val buttonSpacing = 8.dp
+            Calculator(
+                state = state,
+                onAction = calculatorViewModel::onAction,
+                buttonSpacing = buttonSpacing,
+                modifier = Modifier.fillMaxSize()
+                    .background(MediumGray)
+                    .padding(16.dp))
+
+
         }
     }
 
