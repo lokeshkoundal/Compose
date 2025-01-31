@@ -43,7 +43,7 @@ class CalculatorViewModel : ViewModel() {
            return
        }
         if(!state.num2.contains(".") && state.num2.isNotBlank()){
-            state = state.copy(num1 = state.num1 + ".")
+            state = state.copy(num2 = state.num2 + ".")
         }
 
     }

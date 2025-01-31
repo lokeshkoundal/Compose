@@ -27,7 +27,7 @@
 <!--            </intent-filter>-->
         </activity>
         <activity
-            android:name=".tweetApp.MainActivity"
+            android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.ComposeTutorial">

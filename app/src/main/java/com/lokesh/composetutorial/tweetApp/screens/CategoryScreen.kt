@@ -32,15 +32,6 @@ fun CategoryScreen(onClick :(category:String)->Unit){
     val categories: State<List<String>> = categoriesVM.categories.collectAsState()
 
 
-//    LazyVerticalGrid(columns = GridCells.Fixed(2),
-//        contentPadding = PaddingValues(8.dp),
-//        verticalArrangement = Arrangement.SpaceAround
-//    ) {
-//        items(categories.value.distinct()){
-//            CategoryItem(category = it,onClick)
-//        }
-//    }
-
     LazyColumn(Modifier.fillMaxSize(),
         contentPadding = PaddingValues(6.dp),
         verticalArrangement = Arrangement.Center,

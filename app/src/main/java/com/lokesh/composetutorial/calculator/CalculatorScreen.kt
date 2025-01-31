@@ -1,11 +1,19 @@
 package com.lokesh.composetutorial.calculator
 
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
@@ -19,23 +27,29 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import  androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.slideInVertically
-import androidx.compose.animation.slideOutVertically
-import androidx.compose.animation.togetherWith
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.lokesh.composetutorial.calculator.composeElements.CalculatorButton
 import com.lokesh.composetutorial.calculator.model.CalculatorAction
 import com.lokesh.composetutorial.calculator.model.CalculatorState
+import com.lokesh.composetutorial.calculator.model.CalculatorViewModel
 import com.lokesh.composetutorial.calculator.theme.ComposeTutorialTheme
 import com.lokesh.composetutorial.calculator.theme.LightGray
+import com.lokesh.composetutorial.calculator.theme.MediumGray
 import com.lokesh.composetutorial.calculator.theme.Orange
 
+@Composable
+fun CalculatorScreen(){
+    val calculatorViewModel = viewModel<CalculatorViewModel>()
+            val state = calculatorViewModel.state
+            val buttonSpacing = 8.dp
+            Calculator(
+                state = state,
+                onAction = calculatorViewModel::onAction,
+                buttonSpacing = buttonSpacing,
+                modifier = Modifier.fillMaxSize()
+                    .background(MediumGray)
+                    .padding(16.dp))
+}
 @Composable
 fun Calculator(
     state: CalculatorState,
@@ -57,11 +71,11 @@ fun Calculator(
                     .fillMaxWidth()
                     .padding(4.dp),
                     targetState = state,
-                   transitionSpec = {  (slideInVertically { fullHeight -> fullHeight/2 } + fadeIn(animationSpec =
-                   tween(200))
-                   ).togetherWith(
-                       slideOutVertically { fullHeight -> fullHeight/2 }  +fadeOut(animationSpec =
-                   tween(200)))}
+                   transitionSpec = {  (slideInVertically { fullHeight -> fullHeight/2 } +
+                           fadeIn(animationSpec = tween(200)))
+                   .togetherWith(
+                       slideOutVertically { fullHeight -> fullHeight/2 }  +
+                               fadeOut(animationSpec = tween(200)))}
                 )
                 {
                     Text(
@@ -71,13 +85,14 @@ fun Calculator(
                         fontSize = 50.sp,
                         color = Color.White,
                         maxLines = 2,
-                        lineHeight = 50.sp,
+                        lineHeight = 44.sp,
                         softWrap = true
                     )
                 }
 
                 Row(
                     modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(buttonSpacing)
                 ) {
                     CalculatorButton(
@@ -167,9 +182,6 @@ fun Calculator(
                         }
                     )
                 }
-
-
-
 
 
                 Row(

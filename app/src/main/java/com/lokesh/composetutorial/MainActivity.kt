@@ -1,4 +1,4 @@
-package com.lokesh.composetutorial.tweetApp
+package com.lokesh.composetutorial
 
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -32,12 +32,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Color.Companion.DarkGray
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.lokesh.composetutorial.animation.AnimationScreen
+import androidx.navigation.compose.rememberNavController
 import com.lokesh.composetutorial.calculator.Calculator
 import com.lokesh.composetutorial.calculator.model.CalculatorViewModel
 import com.lokesh.composetutorial.calculator.theme.MediumGray
@@ -79,19 +77,12 @@ class MainActivity : ComponentActivity() {
 //                CategoryScreen()
 //                ShowAirplaneModeDialog(viewModel = mainVM)
 //                HomeScreen()
-                App()
+//                App()
 //                AnimationScreen()
 //            }
-            val calculatorViewModel = viewModel<CalculatorViewModel>()
-            val state = calculatorViewModel.state
-            val buttonSpacing = 8.dp
-            Calculator(
-                state = state,
-                onAction = calculatorViewModel::onAction,
-                buttonSpacing = buttonSpacing,
-                modifier = Modifier.fillMaxSize()
-                    .background(MediumGray)
-                    .padding(16.dp))
+//
+
+           RootNavigation(rememberNavController())
 
 
         }
