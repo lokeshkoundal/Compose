@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -24,22 +25,33 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.lokesh.composetutorial.tweetApp.viewModels.CategoriesVM
+import kotlinx.coroutines.flow.StateFlow
 
 @Composable
 fun CategoryScreen(onClick :(category:String)->Unit){
 
     val categoriesVM : CategoriesVM = hiltViewModel()
     val categories: State<List<String>> = categoriesVM.categories.collectAsState()
+    val isLoading: State<Boolean> = categoriesVM.isLoading.collectAsState()
 
 
-    LazyColumn(Modifier.fillMaxSize(),
-        contentPadding = PaddingValues(6.dp),
-        verticalArrangement = Arrangement.Center,
-    ) {
-        items(categories.value.distinct()){
-            CategoryItem(category = it,onClick)
+    if(isLoading.value){
+        Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center){
+            CircularProgressIndicator()
+        }
+
+    }else{
+        LazyColumn(Modifier.fillMaxSize(),
+            contentPadding = PaddingValues(6.dp),
+            verticalArrangement = Arrangement.Center,
+        ) {
+            items(categories.value.distinct()){
+                CategoryItem(category = it,onClick)
+            }
         }
     }
+
+
 }
 
 @Composable

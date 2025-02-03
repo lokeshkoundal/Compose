@@ -54,6 +54,14 @@ fun NavigatorScreen(navController: NavController) {
                 id = R.drawable.ic_tweet,
                 color = Green
             )
+
+            NavButton(
+                onClick = { navController.navigate(Routes.DeeplinkGraph.route) },
+                name = "Deeplink",
+                id = R.drawable.ic_link,
+                color = Green
+            )
+
         }
     }
 }

@@ -44,6 +44,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.lokesh.composetutorial.NavButton
 import com.lokesh.composetutorial.R
+import com.lokesh.composetutorial.Screens
 
 @Composable
 fun AnimationScreen(navController: NavController){
@@ -59,21 +60,21 @@ fun AnimationScreen(navController: NavController){
             )) {
 
             NavButton(
-                onClick = { navController.navigate("animate_visibility") },
+                onClick = { navController.navigate(Screens.AnimateVisibilityScreen.route) },
                 name = " Visibility",
                 id = R.drawable.ic_animation,
                 color = Color.Unspecified
             )
 
             NavButton(
-                onClick = { navController.navigate("AnimateColorAndShape") },
+                onClick = { navController.navigate(Screens.AnimateColorAndShapeScreen.route) },
                 name = "Color And Shape",
                 id = R.drawable.ic_animation,
                 color = Color.Unspecified
             )
 
             NavButton(
-                onClick = { navController.navigate("AnimatedContent") },
+                onClick = { navController.navigate(Screens.AnimatedContentScreen.route) },
                 name = "Animated Content",
                 id = R.drawable.ic_animation,
                 color = Color.Unspecified

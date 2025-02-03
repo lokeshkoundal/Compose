@@ -1,5 +1,6 @@
 package com.lokesh.composetutorial
 
+import android.content.Intent
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -11,6 +12,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import androidx.navigation.navDeepLink
 import androidx.navigation.navigation
 import com.lokesh.composetutorial.animation.AnimateColorAndShape
 import com.lokesh.composetutorial.animation.AnimateVisibility
@@ -25,14 +27,17 @@ fun RootNavigation(navController: NavHostController) {
 
     NavHost(
         navController = navController,
-        startDestination = Routes.RootGraph.route
+        startDestination = Screens.NavigatorScreen.route
     ) {
-        navigation(startDestination = "navigator_screen", route = Routes.RootGraph.route) {
-            composable("navigator_screen") { NavigatorScreen(navController) }
+
+
+        composable(Screens.NavigatorScreen.route){
+            NavigatorScreen(navController)
         }
 
-        navigation(startDestination = "animations_screen", route = Routes.AnimationGraph.route) {
-            composable("animations_screen",
+
+        navigation(startDestination = Screens.AnimationScreen.route, route = Routes.AnimationGraph.route) {
+            composable(Screens.AnimationScreen.route,
                 enterTransition = { slideInHorizontally() + fadeIn() },
                 exitTransition = { slideOutHorizontally()+ fadeOut() },
                 popEnterTransition = { slideInHorizontally() + fadeIn() },
@@ -40,13 +45,13 @@ fun RootNavigation(navController: NavHostController) {
                 AnimationScreen(navController)
             }
 
-            composable("animate_visibility") { AnimateVisibility() }
-            composable("AnimateColorAndShape") { AnimateColorAndShape() }
-            composable("AnimatedContent") { AnimatedContent() }
+            composable(Screens.AnimateVisibilityScreen.route) { AnimateVisibility() }
+            composable(Screens.AnimateColorAndShapeScreen.route) { AnimateColorAndShape() }
+            composable(Screens.AnimatedContentScreen.route) { AnimatedContent() }
         }
 
-        navigation(startDestination = "calculator_screen", route = Routes.CalculatorGraph.route) {
-            composable("calculator_screen",
+        navigation(startDestination = Screens.CalculatorScreen.route, route = Routes.CalculatorGraph.route) {
+            composable(Screens.CalculatorScreen.route,
                 enterTransition = { slideInHorizontally() + fadeIn() },
                 exitTransition = { slideOutHorizontally()+ fadeOut() },
                 popEnterTransition = { slideInHorizontally() + fadeIn() },
@@ -57,20 +62,20 @@ fun RootNavigation(navController: NavHostController) {
             }
         }
 
-        navigation(startDestination = "category_screen", route = Routes.TweetsGraph.route) {
+        navigation(startDestination = Screens.CategoryScreen.route, route = Routes.TweetsGraph.route) {
             val animateDuration = 300
 
-            composable(route = "category_screen",
+            composable(route = Screens.CategoryScreen.route,
                 enterTransition = { slideInHorizontally() + fadeIn() },
                 exitTransition = { slideOutHorizontally()+ fadeOut() },
                 popEnterTransition = { slideInHorizontally() + fadeIn() },
                 popExitTransition = { slideOutHorizontally()+ fadeOut() }) {
                 CategoryScreen{ category->
-                    navController.navigate("details/${category}")
+                    navController.navigate( Screens.DetailsScreen.route + "/${category}")
                 }
             }
 
-            composable(route = "details/{category}",
+            composable(route = Screens.DetailsScreen.route + "/{category}",
                 arguments = listOf(
                     navArgument("category"){
                         type = NavType.StringType
@@ -84,13 +89,46 @@ fun RootNavigation(navController: NavHostController) {
                 DetailsScreen()
             }
         }
+
+        navigation(startDestination = Screens.DeeplinkScreen.route, route = Routes.DeeplinkGraph.route){
+            composable(route = Screens.DeeplinkScreen.route,
+                deepLinks = listOf(navDeepLink {
+                    uriPattern =  "https://lokesh-compose.com/{id}"
+                    action = Intent.ACTION_VIEW
+                }),
+                arguments = listOf(navArgument("id"){
+                    type = NavType.IntType
+                    defaultValue = -1
+                }),
+                enterTransition = { fadeIn(tween()) },
+                exitTransition = { fadeOut(tween()) },
+                popEnterTransition = { fadeIn(tween()) },
+                popExitTransition = { fadeOut(tween()) }){entry ->
+
+                val id = entry.arguments?.getInt("id")
+                DeeplinkScreen(id!!)
+
+            }
+        }
     }
 }
 
 sealed class Routes(val route : String){
-    data object TweetsGraph : Routes(route = "tweets")
-    data object AnimationGraph : Routes(route = "animation")
-    data object CalculatorGraph : Routes(route = "calculator")
-    data object RootGraph : Routes(route = "root")
+    data object TweetsGraph : Routes(route = "tweets_graph")
+    data object AnimationGraph : Routes(route = "animation_graph")
+    data object CalculatorGraph : Routes(route = "calculator_graph")
+    data object DeeplinkGraph : Routes(route = "deeplink_graph")
 
+}
+
+sealed class Screens(val route: String){
+    data object NavigatorScreen : Screens(route = "navigator_screen")
+    data object AnimationScreen : Screens(route = "animations_screen")
+    data object AnimateVisibilityScreen : Screens(route = "animate_visibility_screen")
+    data object AnimateColorAndShapeScreen : Screens(route = "AnimateColorAndShape_screen")
+    data object AnimatedContentScreen : Screens(route = "AnimatedContent_screen")
+    data object CalculatorScreen : Screens(route = "calculator_screen")
+    data object CategoryScreen : Screens(route = "category_screen")
+    data object DetailsScreen : Screens(route = "details_screen")
+    data object DeeplinkScreen : Screens(route = "deeplink_screen")
 }

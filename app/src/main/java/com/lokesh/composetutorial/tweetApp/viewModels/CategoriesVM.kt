@@ -16,15 +16,21 @@ import javax.inject.Inject
 class CategoriesVM @Inject constructor(private val tweetRepository: TweetRepository) : ViewModel() {
 
     var categories : StateFlow<List<String>> = tweetRepository.categories
-
+    var isLoading  = MutableStateFlow(true)
+        private set
     init {
         viewModelScope.launch {
             try{
+                isLoading.emit(true)
                 withTimeout(4000){
                     tweetRepository.getCategories()
                 }
+                isLoading.emit(false)
+
             }catch (e: TimeoutCancellationException){
                 categories = MutableStateFlow(emptyList())
+                isLoading.emit(false)
+
             }
 
         }
