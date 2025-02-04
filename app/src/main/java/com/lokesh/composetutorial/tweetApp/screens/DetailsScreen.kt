@@ -28,20 +28,18 @@ fun DetailsScreen(){
         Text(text = "Tweets",
             modifier = Modifier.fillMaxWidth()
                 .padding(16.dp)
-                .background(MaterialTheme.colorScheme.tertiary, shape = RoundedCornerShape(12.dp))
                 .clip(RoundedCornerShape(12.dp)),
             textAlign = TextAlign.Center,
             fontSize = 32.sp,
             style = MaterialTheme.typography.bodyMedium
         )
 
-        LazyColumn(
-            content = {
+        LazyColumn{
                 items(tweets.value.size){
                     TweetListItem(tweet = tweets.value[it].text)
                 }
             }
-        )
+
     }
 
 }

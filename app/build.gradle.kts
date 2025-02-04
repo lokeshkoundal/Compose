@@ -58,25 +58,27 @@ android {
 
 dependencies {
 
-    //hilt
+    //coil - Image loading
+    implementation(libs.coil.compose)
+
+
+    //hilt - Dependency Injection
     implementation(libs.hilt.android)
     implementation(libs.androidx.runtime.livedata)
     kapt(libs.hilt.android.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
-//    implementation(libs.androidx.hilt.common)
 
-    //retrofit
+    //retrofit - API fetching
     implementation(libs.retrofit)
     implementation (libs.logging.interceptor)
     implementation(libs.converter.gson)
 
 
-    // Coroutines
+    // Coroutines - Background tasks
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
-//    implementation(libs.kotlinx.coroutines.android)
 
-    // ViewModel and LiveData
+    // ViewModel and LiveData - for MVVM
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
@@ -87,6 +89,7 @@ dependencies {
 
 
 
+    implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)

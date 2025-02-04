@@ -35,28 +35,28 @@ fun NavigatorScreen(navController: NavController) {
             )) {
 
             NavButton(
-                onClick = { navController.navigate(Routes.AnimationGraph.route) },
+                onClick = { navController.navigate(Graphs.AnimationGraph.route) },
                 name = "Animations",
                 id = R.drawable.ic_animation,
                 color = Green
             )
 
             NavButton(
-                onClick = { navController.navigate(Routes.CalculatorGraph.route) },
+                onClick = { navController.navigate(Graphs.CalculatorGraph.route) },
                 name = "Calculator",
                 id = R.drawable.ic_calculator,
                 color = Green
             )
 
             NavButton(
-                onClick = { navController.navigate(Routes.TweetsGraph.route) },
+                onClick = { navController.navigate(Graphs.TweetsGraph.route) },
                 name = "Tweets",
                 id = R.drawable.ic_tweet,
                 color = Green
             )
 
             NavButton(
-                onClick = { navController.navigate(Routes.DeeplinkGraph.route) },
+                onClick = { navController.navigate(Screens.DeeplinkScreen.route) },
                 name = "Deeplink",
                 id = R.drawable.ic_link,
                 color = Green

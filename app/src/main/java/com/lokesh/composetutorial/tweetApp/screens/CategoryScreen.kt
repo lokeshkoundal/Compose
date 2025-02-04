@@ -25,7 +25,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.lokesh.composetutorial.tweetApp.viewModels.CategoriesVM
-import kotlinx.coroutines.flow.StateFlow
 
 @Composable
 fun CategoryScreen(onClick :(category:String)->Unit){
@@ -50,8 +49,6 @@ fun CategoryScreen(onClick :(category:String)->Unit){
             }
         }
     }
-
-
 }
 
 @Composable
@@ -61,16 +58,11 @@ fun CategoryItem(category : String,onClick: (category:String) -> Unit){
         .height(72.dp)
         .padding(4.dp,8.dp)
         .background(MaterialTheme.colorScheme.tertiary, shape = RoundedCornerShape(12.dp))
-//        .paint(painterResource(id = R.drawable.ic_bg), contentScale = ContentScale.Crop)
-//        .border(3.dp, Color(0xFFEEEEEE), RoundedCornerShape(8.dp))
         .clip(RoundedCornerShape(12.dp))
         .clickable { onClick(category) },
         contentAlignment = Alignment.Center) {
-
-//        Image(painter = rememberVectorPainter(image = Icons.Default.Star), contentDescription = "Logo")
         Text(text = category,
             color = Color.White,
-//            modifier = Modifier.padding(0.dp,20.dp),
             style = MaterialTheme.typography.headlineMedium)
     }
 }

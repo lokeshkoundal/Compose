@@ -3,6 +3,13 @@
 
     <style name="Theme.ComposeTutorial" parent="android:Theme.Material.Light.NoActionBar">
 
-        <item name="android:statusBarColor">#181557</item>
+        <item name="android:statusBarColor">#1B1B1B</item>
+    </style>
+
+    <style name="Theme.MyApp.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/white</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_kotlin</item>
+        <item name="postSplashScreenTheme">@style/Theme.ComposeTutorial</item>
+        <item name="android:statusBarColor">#1B1B1B</item>
     </style>
 </resources>

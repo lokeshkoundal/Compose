@@ -36,7 +36,7 @@ fun RootNavigation(navController: NavHostController) {
         }
 
 
-        navigation(startDestination = Screens.AnimationScreen.route, route = Routes.AnimationGraph.route) {
+        navigation(startDestination = Screens.AnimationScreen.route, route = Graphs.AnimationGraph.route) {
             composable(Screens.AnimationScreen.route,
                 enterTransition = { slideInHorizontally() + fadeIn() },
                 exitTransition = { slideOutHorizontally()+ fadeOut() },
@@ -50,7 +50,7 @@ fun RootNavigation(navController: NavHostController) {
             composable(Screens.AnimatedContentScreen.route) { AnimatedContent() }
         }
 
-        navigation(startDestination = Screens.CalculatorScreen.route, route = Routes.CalculatorGraph.route) {
+        navigation(startDestination = Screens.CalculatorScreen.route, route = Graphs.CalculatorGraph.route) {
             composable(Screens.CalculatorScreen.route,
                 enterTransition = { slideInHorizontally() + fadeIn() },
                 exitTransition = { slideOutHorizontally()+ fadeOut() },
@@ -62,7 +62,7 @@ fun RootNavigation(navController: NavHostController) {
             }
         }
 
-        navigation(startDestination = Screens.CategoryScreen.route, route = Routes.TweetsGraph.route) {
+        navigation(startDestination = Screens.CategoryScreen.route, route = Graphs.TweetsGraph.route) {
             val animateDuration = 300
 
             composable(route = Screens.CategoryScreen.route,
@@ -90,7 +90,6 @@ fun RootNavigation(navController: NavHostController) {
             }
         }
 
-        navigation(startDestination = Screens.DeeplinkScreen.route, route = Routes.DeeplinkGraph.route){
             composable(route = Screens.DeeplinkScreen.route,
                 deepLinks = listOf(navDeepLink {
                     uriPattern =  "https://lokesh-compose.com/{id}"
@@ -105,19 +104,17 @@ fun RootNavigation(navController: NavHostController) {
                 popEnterTransition = { fadeIn(tween()) },
                 popExitTransition = { fadeOut(tween()) }){entry ->
 
-                val id = entry.arguments?.getInt("id")
-                DeeplinkScreen(id!!)
-
+                val id = entry.arguments?.getInt("id")?:-1
+                DeeplinkScreen(id)
             }
-        }
+
     }
 }
 
-sealed class Routes(val route : String){
-    data object TweetsGraph : Routes(route = "tweets_graph")
-    data object AnimationGraph : Routes(route = "animation_graph")
-    data object CalculatorGraph : Routes(route = "calculator_graph")
-    data object DeeplinkGraph : Routes(route = "deeplink_graph")
+sealed class Graphs(val route : String){
+    data object TweetsGraph : Graphs(route = "tweets_graph")
+    data object AnimationGraph : Graphs(route = "animation_graph")
+    data object CalculatorGraph : Graphs(route = "calculator_graph")
 
 }
 
