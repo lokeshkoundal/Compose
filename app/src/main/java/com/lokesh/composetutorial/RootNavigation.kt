@@ -19,6 +19,7 @@ import com.lokesh.composetutorial.animation.AnimateVisibility
 import com.lokesh.composetutorial.animation.AnimatedContent
 import com.lokesh.composetutorial.animation.AnimationScreen
 import com.lokesh.composetutorial.calculator.CalculatorScreen
+import com.lokesh.composetutorial.quiz.QuizScreen
 import com.lokesh.composetutorial.tweetApp.screens.CategoryScreen
 import com.lokesh.composetutorial.tweetApp.screens.DetailsScreen
 
@@ -108,6 +109,18 @@ fun RootNavigation(navController: NavHostController) {
                 DeeplinkScreen(id)
             }
 
+
+        navigation(startDestination = Screens.QuizScreen.route, route = Graphs.QuizGraph.route) {
+            composable(route = Screens.QuizScreen.route,
+                enterTransition = {slideInHorizontally() + fadeIn()},
+                exitTransition = { slideOutHorizontally() + fadeOut() },
+                popEnterTransition = {slideInHorizontally() + fadeIn()},
+                popExitTransition = {slideOutHorizontally() + fadeOut()},
+            ) {
+                QuizScreen()
+            }
+        }
+
     }
 }
 
@@ -115,6 +128,7 @@ sealed class Graphs(val route : String){
     data object TweetsGraph : Graphs(route = "tweets_graph")
     data object AnimationGraph : Graphs(route = "animation_graph")
     data object CalculatorGraph : Graphs(route = "calculator_graph")
+    data object QuizGraph : Graphs(route = "quiz_graph")
 
 }
 
@@ -128,4 +142,5 @@ sealed class Screens(val route: String){
     data object CategoryScreen : Screens(route = "category_screen")
     data object DetailsScreen : Screens(route = "details_screen")
     data object DeeplinkScreen : Screens(route = "deeplink_screen")
+    data object QuizScreen : Screens(route = "quiz_screen")
 }

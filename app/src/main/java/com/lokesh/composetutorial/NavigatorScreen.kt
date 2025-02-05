@@ -62,6 +62,13 @@ fun NavigatorScreen(navController: NavController) {
                 color = Green
             )
 
+            NavButton(
+                onClick = { navController.navigate(Screens.QuizScreen.route) },
+                name = "Quiz",
+                id = R.drawable.ic_quiz,
+                color = Green
+            )
+
         }
     }
 }
