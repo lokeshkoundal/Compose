@@ -117,7 +117,7 @@ fun RootNavigation(navController: NavHostController) {
                 popEnterTransition = {slideInHorizontally() + fadeIn()},
                 popExitTransition = {slideOutHorizontally() + fadeOut()},
             ) {
-                QuizScreen()
+                QuizScreen(navController)
             }
         }
 
