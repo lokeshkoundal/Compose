@@ -1,0 +1,242 @@
+[
+    {
+      "question": "What is the capital of Japan?",
+      "answers": [
+        { "text": "Beijing" },
+        { "text": "Seoul" },
+        { "text": "Tokyo" },
+        { "text": "Bangkok" }
+      ],
+      "correctAnswer": { "text": "Tokyo" },
+      "selectedAnswer": null,
+      "image": "ic_tweet"
+    },
+    {
+      "question": "Which planet is known as the Red Planet?",
+      "answers": [
+        { "text": "Earth" },
+        { "text": "Mars" },
+        { "text": "Jupiter" },
+        { "text": "Venus" }
+      ],
+      "correctAnswer": { "text": "Mars" },
+      "selectedAnswer": null,
+      "image": "ic_tweet"
+    },
+    {
+      "question": "Who wrote 'Hamlet'?",
+      "answers": [
+        { "text": "William Wordsworth" },
+        { "text": "Charles Dickens" },
+        { "text": "William Shakespeare" },
+        { "text": "Jane Austen" }
+      ],
+      "correctAnswer": { "text": "William Shakespeare" },
+      "selectedAnswer": null,
+      "image": "ic_tweet"
+    },
+    {
+      "question": "What is the largest mammal in the world?",
+      "answers": [
+        { "text": "African Elephant" },
+        { "text": "Blue Whale" },
+        { "text": "Giraffe" },
+        { "text": "Great White Shark" }
+      ],
+      "correctAnswer": { "text": "Blue Whale" },
+      "selectedAnswer": null,
+      "image": "ic_tweet"
+    },
+    {
+      "question": "Which is the smallest continent by land area?",
+      "answers": [
+        { "text": "Europe" },
+        { "text": "Australia" },
+        { "text": "Antarctica" },
+        { "text": "South America" }
+      ],
+      "correctAnswer": { "text": "Australia" },
+      "selectedAnswer": null,
+      "image": "ic_tweet"
+    },
+    {
+      "question": "What is the currency of the United Kingdom?",
+      "answers": [
+        { "text": "Euro" },
+        { "text": "Pound Sterling" },
+        { "text": "Dollar" },
+        { "text": "Yen" }
+      ],
+      "correctAnswer": { "text": "Pound Sterling" },
+      "selectedAnswer": null,
+      "image": "ic_tweet"
+    },
+    {
+      "question": "Which ocean is the largest?",
+      "answers": [
+        { "text": "Atlantic Ocean" },
+        { "text": "Indian Ocean" },
+        { "text": "Pacific Ocean" },
+        { "text": "Arctic Ocean" }
+      ],
+      "correctAnswer": { "text": "Pacific Ocean" },
+      "selectedAnswer": null,
+      "image": "ic_tweet"
+    },
+    {
+      "question": "Who developed the theory of relativity?",
+      "answers": [
+        { "text": "Isaac Newton" },
+        { "text": "Nikola Tesla" },
+        { "text": "Albert Einstein" },
+        { "text": "Galileo Galilei" }
+      ],
+      "correctAnswer": { "text": "Albert Einstein" },
+      "selectedAnswer": null,
+      "image": "ic_tweet"
+    },
+    {
+      "question": "What is the main ingredient in guacamole?",
+      "answers": [
+        { "text": "Tomato" },
+        { "text": "Avocado" },
+        { "text": "Cucumber" },
+        { "text": "Lettuce" }
+      ],
+      "correctAnswer": { "text": "Avocado" },
+      "selectedAnswer": null,
+      "image": "ic_tweet"
+    },
+    {
+      "question": "Which country is famous for the Great Wall?",
+      "answers": [
+        { "text": "India" },
+        { "text": "China" },
+        { "text": "Japan" },
+        { "text": "Russia" }
+      ],
+      "correctAnswer": { "text": "China" },
+      "selectedAnswer": null,
+      "image": "ic_tweet"
+    },
+    {
+      "question": "Which gas do plants absorb from the atmosphere?",
+      "answers": [
+        { "text": "Oxygen" },
+        { "text": "Nitrogen" },
+        { "text": "Carbon Dioxide" },
+        { "text": "Hydrogen" }
+      ],
+      "correctAnswer": { "text": "Carbon Dioxide" },
+      "selectedAnswer": null,
+      "image": "ic_tweet"
+    },
+    {
+      "question": "Which of the following is a primary color?",
+      "answers": [
+        { "text": "Green" },
+        { "text": "Yellow" },
+        { "text": "Blue" },
+        { "text": "Purple" }
+      ],
+      "correctAnswer": { "text": "Blue" },
+      "selectedAnswer": null,
+      "image": "ic_tweet"
+    },
+    {
+      "question": "What is the longest river in the world?",
+      "answers": [
+        { "text": "Amazon River" },
+        { "text": "Nile River" },
+        { "text": "Yangtze River" },
+        { "text": "Mississippi River" }
+      ],
+      "correctAnswer": { "text": "Nile River" },
+      "selectedAnswer": null,
+      "image": "ic_tweet"
+    },
+    {
+      "question": "How many continents are there on Earth?",
+      "answers": [
+        { "text": "5" },
+        { "text": "6" },
+        { "text": "7" },
+        { "text": "8" }
+      ],
+      "correctAnswer": { "text": "7" },
+      "selectedAnswer": null,
+      "image": "ic_tweet"
+    },
+    {
+      "question": "What is the chemical symbol for gold?",
+      "answers": [
+        { "text": "Au" },
+        { "text": "Ag" },
+        { "text": "Fe" },
+        { "text": "Hg" }
+      ],
+      "correctAnswer": { "text": "Au" },
+      "selectedAnswer": null,
+      "image": "ic_tweet"
+    },
+    {
+      "question": "Which year did the Titanic sink?",
+      "answers": [
+        { "text": "1905" },
+        { "text": "1912" },
+        { "text": "1923" },
+        { "text": "1898" }
+      ],
+      "correctAnswer": { "text": "1912" },
+      "selectedAnswer": null,
+      "image": "ic_tweet"
+    },
+    {
+      "question": "What is the tallest mountain in the world?",
+      "answers": [
+        { "text": "Mount Kilimanjaro" },
+        { "text": "Mount Everest" },
+        { "text": "K2" },
+        { "text": "Denali" }
+      ],
+      "correctAnswer": { "text": "Mount Everest" },
+      "selectedAnswer": null,
+      "image": "ic_tweet"
+    },
+    {
+      "question": "Which animal is known as the 'King of the Jungle'?",
+      "answers": [
+        { "text": "Tiger" },
+        { "text": "Elephant" },
+        { "text": "Lion" },
+        { "text": "Cheetah" }
+      ],
+      "correctAnswer": { "text": "Lion" },
+      "selectedAnswer": null,
+      "image": "ic_tweet"
+    },
+    {
+      "question": "What is the freezing point of water in Celsius?",
+      "answers": [
+        { "text": "0°C" },
+        { "text": "32°C" },
+        { "text": "-10°C" },
+        { "text": "100°C" }
+      ],
+      "correctAnswer": { "text": "0°C" },
+      "selectedAnswer": null,
+      "image": "ic_tweet"
+    },
+    {
+      "question": "Who painted the Mona Lisa?",
+      "answers": [
+        { "text": "Vincent van Gogh" },
+        { "text": "Pablo Picasso" },
+        { "text": "Leonardo da Vinci" },
+        { "text": "Claude Monet" }
+      ],
+      "correctAnswer": { "text": "Leonardo da Vinci" },
+      "selectedAnswer": null,
+      "image": "ic_tweet"
+    }
+  ]

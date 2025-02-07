@@ -39,11 +39,8 @@ fun AnswerUI(answer: Answer,isSelected: Boolean,isCorrect: Boolean, onClick: (se
                 verticalAlignment = Alignment.CenterVertically) {
 
                 AnimatedContent(targetState = answer.text,
-                    transitionSpec = {
-                       fadeIn().togetherWith(
-                                fadeOut()
-                            )
-                    }) {
+                    modifier = Modifier.weight(1f),
+                    transitionSpec = { fadeIn().togetherWith(fadeOut()) }) {
                     Text(it, fontFamily = FontFamily.SansSerif, fontWeight = FontWeight.Medium)
 
                 }

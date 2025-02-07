@@ -6,7 +6,10 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -24,7 +27,7 @@ import com.lokesh.composetutorial.tweetApp.screens.CategoryScreen
 import com.lokesh.composetutorial.tweetApp.screens.DetailsScreen
 
 @Composable
-fun RootNavigation(navController: NavHostController) {
+fun RootNavigation(navController: NavHostController,paddingValues: PaddingValues,snackbarHostState: SnackbarHostState) {
 
     NavHost(
         navController = navController,
@@ -117,7 +120,7 @@ fun RootNavigation(navController: NavHostController) {
                 popEnterTransition = {slideInHorizontally() + fadeIn()},
                 popExitTransition = {slideOutHorizontally() + fadeOut()},
             ) {
-                QuizScreen(navController)
+                QuizScreen(navController,snackbarHostState, rememberCoroutineScope())
             }
         }
 
@@ -129,7 +132,6 @@ sealed class Graphs(val route : String){
     data object AnimationGraph : Graphs(route = "animation_graph")
     data object CalculatorGraph : Graphs(route = "calculator_graph")
     data object QuizGraph : Graphs(route = "quiz_graph")
-
 }
 
 sealed class Screens(val route: String){

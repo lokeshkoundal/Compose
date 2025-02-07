@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -29,7 +28,6 @@ import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarDuration
-import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -49,30 +47,29 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.lokesh.composetutorial.quiz.composeElements.AnswerUI
 import com.lokesh.composetutorial.quiz.model.QuizVM
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import androidx.compose.foundation.layout.fillMaxWidth as fillMaxWidth1
 
 @Composable
-fun QuizScreen(navController: NavController) {
+fun QuizScreen(navController: NavController,snackbarHostState: SnackbarHostState,coroutineScope : CoroutineScope) {
 
-    val quizVM : QuizVM = viewModel()
+    val quizVM : QuizVM = hiltViewModel()
 
     val questions = quizVM.questions.collectAsState()
     val currentQuestionIndex = quizVM.currentQuestionIndex.collectAsState()
 
-    val snackbarHostState = remember { SnackbarHostState() }
-    val coroutineScope = rememberCoroutineScope()
 
     val scored = quizVM.score.collectAsState()
 
 
     Scaffold(
         topBar = {TopBar(navController,questions.value.size,currentQuestionIndex.value)},
-        bottomBar = {BottomBar(quizVM)},
-        snackbarHost = { SnackbarHost(snackbarHostState) }
+        bottomBar = {BottomBar(quizVM)}
 
     ) {paddingValues ->
 
@@ -84,10 +81,11 @@ fun QuizScreen(navController: NavController) {
                 isFirstComposition.value = false
             else{
                 coroutineScope.launch {
-                    snackbarHostState.showSnackbar(message = "Your Score is ${quizVM.score.value}",
-                        duration = SnackbarDuration.Short)
-
                     navController.popBackStack()
+
+                    snackbarHostState.showSnackbar(message = "Your Score is ${quizVM.score.value}",
+                        duration = SnackbarDuration.Long)
+
                 }
             }
 
@@ -102,7 +100,7 @@ fun QuizScreen(navController: NavController) {
 
             Card(modifier = Modifier
                 .padding(bottom = 80.dp)
-                .fillMaxWidth(),
+                .fillMaxWidth1(),
                 shape = RoundedCornerShape(6.dp),
                 elevation = CardDefaults.cardElevation(8.dp),
                 colors = CardColors(
@@ -166,7 +164,7 @@ fun BottomBar(quizVM: QuizVM) {
 
     HorizontalDivider()
 
-        Row(Modifier.fillMaxWidth()
+        Row(Modifier.fillMaxWidth1()
             .padding(horizontal = 10.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center) {
@@ -177,7 +175,10 @@ fun BottomBar(quizVM: QuizVM) {
             }
 
             Button(onClick = { if(!lastQState.value){quizVM.nextQuestion()} else {quizVM.calculateScore()} }, modifier = Modifier.weight(0.5f).padding(4.dp),
-                colors = ButtonDefaults.buttonColors(Color(0xFF667BEC)),) {
+                colors = ButtonDefaults.buttonColors(if(lastQState.value)Color(  0xFF4CAF50)else Color(
+                    0xFF667BEC
+                )
+                ),) {
                 Text(text = if(lastQState.value) "Submit" else "Next", color = Color.White)
             }
 
@@ -187,9 +188,9 @@ fun BottomBar(quizVM: QuizVM) {
 
 @Composable
 fun TopBar(navController: NavController, size: Int, currentQuestionIndex: Int) {
-    Column(Modifier.fillMaxWidth().padding(6.dp)) {
+    Column(Modifier.fillMaxWidth1().padding(6.dp)) {
 
-        Box(Modifier.fillMaxWidth()){
+        Box(Modifier.fillMaxWidth1()){
             Text( currentQuestionIndex.plus(1).toString() + " of "+ size, Modifier.align(Alignment.Center))
 
             IconButton(onClick = {navController.popBackStack()},
@@ -215,7 +216,7 @@ fun TopBar(navController: NavController, size: Int, currentQuestionIndex: Int) {
 
             gapSize = 0.dp,
             modifier = Modifier
-                .fillMaxWidth()
+                .fillMaxWidth1()
                 .height(6.dp)
                 .clip(RoundedCornerShape(12.dp)),
             color = Color(0xFF3F51B5),
