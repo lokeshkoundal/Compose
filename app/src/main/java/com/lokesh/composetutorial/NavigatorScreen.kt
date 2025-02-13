@@ -6,7 +6,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -32,7 +34,8 @@ fun NavigatorScreen(navController: NavController) {
             .padding(
                 horizontal = 12.dp,
                 vertical = 20.dp
-            )) {
+            )
+            .verticalScroll(rememberScrollState())) {
 
             NavButton(
                 onClick = { navController.navigate(Graphs.AnimationGraph.route) },
@@ -66,6 +69,20 @@ fun NavigatorScreen(navController: NavController) {
                 onClick = { navController.navigate(Screens.QuizScreen.route) },
                 name = "Quiz",
                 id = R.drawable.ic_quiz,
+                color = Green
+            )
+
+            NavButton(
+                onClick = { navController.navigate(Graphs.OnlineQuiz.route) },
+                name = "Online Quiz",
+                id = R.drawable.ic_quiz,
+                color = Green
+            )
+
+            NavButton(
+                onClick = { navController.navigate(Screens.MediaScreen.route) },
+                name = "Media player",
+                id = R.drawable.ic_movie,
                 color = Green
             )
 

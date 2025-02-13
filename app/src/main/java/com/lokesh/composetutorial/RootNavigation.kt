@@ -14,6 +14,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.navigation
 import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
 import androidx.navigation.navigation
@@ -22,7 +23,10 @@ import com.lokesh.composetutorial.animation.AnimateVisibility
 import com.lokesh.composetutorial.animation.AnimatedContent
 import com.lokesh.composetutorial.animation.AnimationScreen
 import com.lokesh.composetutorial.calculator.CalculatorScreen
+import com.lokesh.composetutorial.mediaplayer.MediaScreen
 import com.lokesh.composetutorial.quiz.QuizScreen
+import com.lokesh.composetutorial.quizOnline.screens.OnlineQuizScreen
+import com.lokesh.composetutorial.quizOnline.screens.QuizCategoryScreen
 import com.lokesh.composetutorial.tweetApp.screens.CategoryScreen
 import com.lokesh.composetutorial.tweetApp.screens.DetailsScreen
 
@@ -124,6 +128,36 @@ fun RootNavigation(navController: NavHostController,paddingValues: PaddingValues
             }
         }
 
+        composable(route = Screens.MediaScreen.route,
+            enterTransition = {slideInHorizontally() + fadeIn()},
+            exitTransition = { slideOutHorizontally() + fadeOut() },
+            popEnterTransition = {slideInHorizontally() + fadeIn()},
+            popExitTransition = {slideOutHorizontally() + fadeOut()},){
+
+            MediaScreen()
+        }
+
+        navigation(startDestination = Screens.QuizCategoryScreen.route, route = Graphs.OnlineQuiz.route){
+            composable(route = Screens.QuizCategoryScreen.route) {
+                QuizCategoryScreen(navController = navController){categoryId->
+                    navController.navigate(Screens.OnlineQuizScreen.route + "/${categoryId}")
+                }
+            }
+
+            composable(route = Screens.OnlineQuizScreen.route + "/{categoryId}",
+                arguments = listOf(
+                    navArgument("categoryId"){type = NavType.IntType}
+                )
+            ){ navBackStackEntry ->
+
+                val categoryId = navBackStackEntry.arguments?.getInt("categoryId")?:-1
+                OnlineQuizScreen(categoryId)
+
+
+            }
+        }
+
+
     }
 }
 
@@ -132,6 +166,7 @@ sealed class Graphs(val route : String){
     data object AnimationGraph : Graphs(route = "animation_graph")
     data object CalculatorGraph : Graphs(route = "calculator_graph")
     data object QuizGraph : Graphs(route = "quiz_graph")
+    data object OnlineQuiz : Graphs(route = "online_quiz_graph")
 }
 
 sealed class Screens(val route: String){
@@ -145,4 +180,8 @@ sealed class Screens(val route: String){
     data object DetailsScreen : Screens(route = "details_screen")
     data object DeeplinkScreen : Screens(route = "deeplink_screen")
     data object QuizScreen : Screens(route = "quiz_screen")
+    data object MediaScreen : Screens(route = "media_screen")
+    data object QuizCategoryScreen : Screens(route = "quiz_category_screen")
+    data object OnlineQuizScreen : Screens(route = "online_quiz_screen")
+
 }

@@ -1,7 +1,7 @@
 package com.lokesh.composetutorial
 
-import com.lokesh.composetutorial.tweetApp.repository.TweetRepository
 import com.lokesh.composetutorial.tweetApp.network.TweetApi
+import com.lokesh.composetutorial.tweetApp.repository.TweetRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,11 +14,13 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 class AppModule {
 
+    private val TWEET_BASE_URL = "https://api.jsonbin.io/"
+
     @Singleton
     @Provides
     fun providesRetrofit():Retrofit{
         return Retrofit.Builder()
-            .baseUrl("https://api.jsonbin.io/")
+            .baseUrl(TWEET_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }

@@ -58,6 +58,10 @@ android {
 
 dependencies {
 
+    //media3  - video playback and editing
+    implementation(libs.medi3.exoplayer)
+    implementation(libs.androidx.media3.ui)
+
     //coil - Image loading
     implementation(libs.coil.compose)
 

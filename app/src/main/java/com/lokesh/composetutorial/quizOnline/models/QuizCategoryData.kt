@@ -1,8 +1,9 @@
 package com.lokesh.composetutorial.quizOnline.models
 
-import android.graphics.Color
-import androidx.compose.material3.CardColors
+import androidx.compose.ui.graphics.Color
 
-data class QuizCategoryData(val categoryID : Int,val image : Int,
-                            val name : String, val cardColors: CardColors,
-                            val textColor  : Color)
+
+data class QuizCategoryData(
+    val categoryID: Int, val image: Int,
+    val name: String, val cardColor: Color,
+    val textColor: Color)
