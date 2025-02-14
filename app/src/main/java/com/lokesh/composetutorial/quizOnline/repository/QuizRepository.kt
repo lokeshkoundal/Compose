@@ -9,11 +9,11 @@ class QuizRepository @Inject constructor(private val quizApiService: QuizApiServ
 
     suspend fun getQuestions(categoryId: Int):Response<QuizResponse> {
         val res =  quizApiService.getQuestions(category = categoryId)
+        return res
+    }
 
-        return if(res.isSuccessful && res.body() != null){
-            res
-        }else{
-            Response.success(QuizResponse(0, emptyList()))
-        }
+    suspend fun getRandomQuestions():Response<QuizResponse> {
+        val res =  quizApiService.getRandomQuestions()
+        return res
     }
 }

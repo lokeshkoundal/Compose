@@ -8,16 +8,18 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class AppModule {
+object AppModule {
 
-    private val TWEET_BASE_URL = "https://api.jsonbin.io/"
+    private const val TWEET_BASE_URL = "https://api.jsonbin.io/"
 
     @Singleton
     @Provides
+    @Named("tweetRetrofit")
     fun providesRetrofit():Retrofit{
         return Retrofit.Builder()
             .baseUrl(TWEET_BASE_URL)
@@ -27,7 +29,7 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun providesTweetApi(retrofit: Retrofit): TweetApi {
+    fun providesTweetApi(@Named("tweetRetrofit") retrofit: Retrofit): TweetApi {
         return retrofit.create(TweetApi::class.java)
     }
 

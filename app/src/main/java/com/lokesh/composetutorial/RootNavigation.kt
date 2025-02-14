@@ -14,7 +14,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.navigation
 import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
 import androidx.navigation.navigation
@@ -149,9 +148,8 @@ fun RootNavigation(navController: NavHostController,paddingValues: PaddingValues
                     navArgument("categoryId"){type = NavType.IntType}
                 )
             ){ navBackStackEntry ->
-
                 val categoryId = navBackStackEntry.arguments?.getInt("categoryId")?:-1
-                OnlineQuizScreen(categoryId)
+                OnlineQuizScreen(categoryId,navController)
 
 
             }

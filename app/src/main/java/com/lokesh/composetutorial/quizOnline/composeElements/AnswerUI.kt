@@ -1,4 +1,4 @@
-package com.lokesh.composetutorial.quiz.composeElements
+package com.lokesh.composetutorial.quizOnline.composeElements
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.fadeIn

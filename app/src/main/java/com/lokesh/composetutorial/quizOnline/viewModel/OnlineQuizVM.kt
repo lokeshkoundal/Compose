@@ -1,30 +1,117 @@
 package com.lokesh.composetutorial.quizOnline.viewModel
 
-import androidx.compose.runtime.mutableStateOf
+import android.util.Log
+import androidx.core.text.HtmlCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.lokesh.composetutorial.quizOnline.models.QuizResponse
+import com.lokesh.composetutorial.quizOnline.models.QuizResponse.Result
 import com.lokesh.composetutorial.quizOnline.repository.QuizRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class OnlineQuizVM @Inject constructor(val quizRepository: QuizRepository) : ViewModel() {
+@HiltViewModel
+class OnlineQuizVM @Inject constructor(private val quizRepository: QuizRepository) : ViewModel() {
 
-    var quizQuestions  = MutableStateFlow<List<QuizResponse.Result>>(emptyList())
+
+    var quizQuestions  = MutableStateFlow<List<Result>>(emptyList())
         private set
+
     var isLoading  = MutableStateFlow(true)
         private set
 
-   fun getQuestions(categoryId: Int) {
+    var currentQuestionIndex =  MutableStateFlow(0)
+        private set
+
+    var isLastQ =  MutableStateFlow(false)
+        private set
+
+    var isQuizFinished = MutableStateFlow(false)
+        private set
+
+    var scored = MutableStateFlow(0)
+        private set
+
+
+
+    fun getQuestions(categoryId: Int) {
         viewModelScope.launch {
-            isLoading.value = true
-            val res = quizRepository.getQuestions(categoryId)
-//            quizQuestions = res.body().results
-            isLoading.value = false
+            isLoading.emit(true)
+            try {
+
+                val res = if(categoryId==-1){
+                    quizRepository.getRandomQuestions()
+                }else{
+                    quizRepository.getQuestions(categoryId)
+                }
+                res.let {
+                    val updatedList = it.body()?.results?.map { result ->
+                        result.copy(allAnswer = (result.incorrect_answers + result.correct_answer).shuffled())
+                    }
+                    if (updatedList != null) {
+                        quizQuestions.emit(updatedList)
+                    }
+                }
+
+            }catch (e:Exception){
+                Log.e("Quiz", "Error fetching quiz: ${e.message}")
+                quizQuestions.emit(emptyList())
+            }
+
+            isLoading.emit(false)
 
         }
 
     }
 
+
+    fun calculateScore() {
+        var score = 0
+        quizQuestions.value.forEach { question ->
+            if (question.selectedAnswer == question.correct_answer) {
+                score++
+            }
+        }
+        scored.value = score
+        isQuizFinished.value = true
+
+
+    }
+
+    fun dismissDialog() {
+        isQuizFinished.value = false
+    }
+
+    fun nextQuestion(){
+        if(currentQuestionIndex.value < quizQuestions.value.size-1){
+            currentQuestionIndex.value++
+
+        }
+        if(currentQuestionIndex.value == quizQuestions.value.size-1){
+            isLastQ.value = true
+
+        }
+    }
+
+    fun previousQuestion(){
+        if(currentQuestionIndex.value > 0) {
+            currentQuestionIndex.value--
+
+            if(isLastQ.value)
+                isLastQ.value = false
+        }
+    }
+
+    fun answerSelected(questionIndex: Int, answer: String) {
+        quizQuestions.value = quizQuestions.value.toMutableList().apply {
+            this[questionIndex] = this[questionIndex].copy(selectedAnswer = answer)
+        }
+    }
+
+
+}
+
+fun parseHtmlToText(html: String): String {
+    return HtmlCompat.fromHtml(html, HtmlCompat.FROM_HTML_MODE_LEGACY).toString()
 }

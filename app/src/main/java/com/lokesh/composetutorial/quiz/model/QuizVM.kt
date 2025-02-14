@@ -28,7 +28,7 @@ class QuizVM @Inject constructor(application: Application) : AndroidViewModel(ap
         questionList = result
     }
 
-    private val _score = MutableStateFlow(0)
+    private val _score = MutableStateFlow(-1)
     val score = _score.asStateFlow()
 
     private val _isLastQ = MutableStateFlow(false)
