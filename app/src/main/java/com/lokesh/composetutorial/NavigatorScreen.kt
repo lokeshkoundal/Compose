@@ -10,7 +10,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -21,7 +20,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.lokesh.composetutorial.calculator.theme.Green
 
 @Composable
 fun NavigatorScreen(navController: NavController) {
@@ -41,49 +39,49 @@ fun NavigatorScreen(navController: NavController) {
                 onClick = { navController.navigate(Graphs.AnimationGraph.route) },
                 name = "Animations",
                 id = R.drawable.ic_animation,
-                color = Green
+//                color = Green
             )
 
             NavButton(
                 onClick = { navController.navigate(Graphs.CalculatorGraph.route) },
                 name = "Calculator",
                 id = R.drawable.ic_calculator,
-                color = Green
+//                color = Green
             )
 
             NavButton(
                 onClick = { navController.navigate(Graphs.TweetsGraph.route) },
                 name = "Tweets",
                 id = R.drawable.ic_tweet,
-                color = Green
+//                color = Green
             )
 
             NavButton(
                 onClick = { navController.navigate(Screens.DeeplinkScreen.route) },
                 name = "Deeplink",
                 id = R.drawable.ic_link,
-                color = Green
+//                color = Green
             )
 
             NavButton(
                 onClick = { navController.navigate(Screens.QuizScreen.route) },
                 name = "Quiz",
                 id = R.drawable.ic_quiz,
-                color = Green
+//                color = Green
             )
 
             NavButton(
                 onClick = { navController.navigate(Graphs.OnlineQuiz.route) },
                 name = "Online Quiz",
                 id = R.drawable.ic_quiz,
-                color = Green
+//                color = Green
             )
 
             NavButton(
                 onClick = { navController.navigate(Screens.MediaScreen.route) },
                 name = "Media player",
                 id = R.drawable.ic_movie,
-                color = Green
+//                color = Green
             )
 
         }
@@ -91,13 +89,13 @@ fun NavigatorScreen(navController: NavController) {
 }
 
 @Composable
-fun NavButton(name:String,id:Int,color: Color, onClick: () -> Unit) {
+fun NavButton(name:String,id:Int, onClick: () -> Unit) {
     Button(
         onClick = { onClick() },
         modifier = Modifier
             .fillMaxWidth()
             .padding(10.dp),
-        colors = ButtonDefaults.buttonColors(color),
+//        colors = ButtonDefaults.buttonColors(color),
         shape =  RoundedCornerShape(12.dp)
     ) {
         Box(

@@ -131,13 +131,15 @@ fun RootNavigation(navController: NavHostController,paddingValues: PaddingValues
             enterTransition = {slideInHorizontally() + fadeIn()},
             exitTransition = { slideOutHorizontally() + fadeOut() },
             popEnterTransition = {slideInHorizontally() + fadeIn()},
-            popExitTransition = {slideOutHorizontally() + fadeOut()},){
+            popExitTransition = {slideOutHorizontally() + fadeOut()}){
 
             MediaScreen()
         }
 
         navigation(startDestination = Screens.QuizCategoryScreen.route, route = Graphs.OnlineQuiz.route){
-            composable(route = Screens.QuizCategoryScreen.route) {
+            composable(route = Screens.QuizCategoryScreen.route,
+                enterTransition = { fadeIn()},
+                exitTransition = { fadeOut() },) {
                 QuizCategoryScreen(navController = navController){categoryId->
                     navController.navigate(Screens.OnlineQuizScreen.route + "/${categoryId}")
                 }

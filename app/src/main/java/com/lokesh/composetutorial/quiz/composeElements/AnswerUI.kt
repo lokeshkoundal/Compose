@@ -21,6 +21,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.lokesh.composetutorial.quiz.model.Answer
+import com.lokesh.composetutorial.quizOnline.screens.parseHtmlToText
 
 @Composable
 fun AnswerUI(answer: Answer,isSelected: Boolean,isCorrect: Boolean, onClick: (selectedAnswer: Answer) -> Unit) {
@@ -39,7 +40,7 @@ fun AnswerUI(answer: Answer,isSelected: Boolean,isCorrect: Boolean, onClick: (se
                 AnimatedContent(targetState = answer.text,
                     modifier = Modifier.weight(1f),
                     transitionSpec = { fadeIn().togetherWith(fadeOut()) }) {
-                    Text(it, fontFamily = FontFamily.SansSerif, fontWeight = FontWeight.Medium)
+                    Text(parseHtmlToText(it), fontFamily = FontFamily.SansSerif, fontWeight = FontWeight.Medium)
 
                 }
 

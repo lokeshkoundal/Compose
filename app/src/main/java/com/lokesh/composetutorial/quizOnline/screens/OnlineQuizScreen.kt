@@ -22,6 +22,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
@@ -105,6 +106,7 @@ fun OnlineQuizScreen2(
             if(isQuizFinished){
                 QuizResultDialog(
                     score = score,
+                    total = quizQuestions.size,
                     onDismiss = {
                         onlineQuizVM.dismissDialog()
                         navController.popBackStack() },
@@ -190,7 +192,7 @@ fun OnlineQuizScreen2(
 }
 
 @Composable
-fun QuizResultDialog(score: Int, onDismiss: () -> Unit) {
+fun QuizResultDialog(score: Int,total: Int, onDismiss: () -> Unit) {
     AlertDialog(
         shape = RoundedCornerShape(12.dp),
         onDismissRequest = onDismiss,
@@ -198,12 +200,13 @@ fun QuizResultDialog(score: Int, onDismiss: () -> Unit) {
             fontFamily = FontFamily(Font(R.font.nunito_bold)),
             color = Color.White) },
 
-        text = { Text("Your Score: $score",
+        text = { Text("Your Score: $score out of $total",
             fontFamily = FontFamily(Font(R.font.nunito_bold)),
             color = Color.White) },
 
         confirmButton = {
-            Button(onClick = onDismiss) {
+            Button(onClick = onDismiss,
+                colors = ButtonColors(containerColor = Color.Black,Color.White,Color.Black,Color.Black)) {
                 Text("Play Another Quiz",
                     fontFamily = FontFamily(Font(R.font.nunito_bold))
                 )
@@ -260,9 +263,11 @@ fun TopBar(navController: NavController, size: Int, currentQuestionIndex: Int,di
                 fontWeight = FontWeight.Light,
                 modifier = Modifier.align(Alignment.CenterStart)
                     .clip(RoundedCornerShape(4.dp))
-                    .background(color = if(difficulty == "easy") Color(0xFF4CAF50) else if(difficulty == "medium") Color(0xFFFFC107) else Color(
-                        0xFFEC4E43
-                    ))
+                    .background(color = when(difficulty){
+                        "easy" -> Color(0xFF4CAF50)
+                        "medium"-> Color(0xFFFFC107)
+                        else ->Color(0xFFEC4E43)
+                    })
                     .padding(horizontal = 6.dp, vertical = 2.dp))
 
             Text( currentQuestionIndex.plus(1).toString() + " of "+ size, Modifier.align(Alignment.Center))
