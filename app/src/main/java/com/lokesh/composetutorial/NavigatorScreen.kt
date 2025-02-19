@@ -39,49 +39,42 @@ fun NavigatorScreen(navController: NavController) {
                 onClick = { navController.navigate(Graphs.AnimationGraph.route) },
                 name = "Animations",
                 id = R.drawable.ic_animation,
-//                color = Green
             )
 
             NavButton(
                 onClick = { navController.navigate(Graphs.CalculatorGraph.route) },
                 name = "Calculator",
                 id = R.drawable.ic_calculator,
-//                color = Green
             )
 
             NavButton(
                 onClick = { navController.navigate(Graphs.TweetsGraph.route) },
                 name = "Tweets",
                 id = R.drawable.ic_tweet,
-//                color = Green
             )
 
             NavButton(
                 onClick = { navController.navigate(Screens.DeeplinkScreen.route) },
                 name = "Deeplink",
                 id = R.drawable.ic_link,
-//                color = Green
             )
 
             NavButton(
                 onClick = { navController.navigate(Screens.QuizScreen.route) },
                 name = "Quiz",
                 id = R.drawable.ic_quiz,
-//                color = Green
             )
 
             NavButton(
                 onClick = { navController.navigate(Graphs.OnlineQuiz.route) },
                 name = "Online Quiz",
                 id = R.drawable.ic_quiz,
-//                color = Green
             )
 
             NavButton(
                 onClick = { navController.navigate(Screens.MediaScreen.route) },
                 name = "Media player",
                 id = R.drawable.ic_movie,
-//                color = Green
             )
 
         }
@@ -95,7 +88,6 @@ fun NavButton(name:String,id:Int, onClick: () -> Unit) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(10.dp),
-//        colors = ButtonDefaults.buttonColors(color),
         shape =  RoundedCornerShape(12.dp)
     ) {
         Box(
