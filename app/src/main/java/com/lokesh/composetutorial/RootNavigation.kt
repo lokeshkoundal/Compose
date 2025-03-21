@@ -17,17 +17,19 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
 import androidx.navigation.navigation
-import com.lokesh.composetutorial.animation.AnimateColorAndShape
-import com.lokesh.composetutorial.animation.AnimateVisibility
-import com.lokesh.composetutorial.animation.AnimatedContent
-import com.lokesh.composetutorial.animation.AnimationScreen
+import com.lokesh.composetutorial.extra.animation.AnimateColorAndShape
+import com.lokesh.composetutorial.extra.animation.AnimateVisibility
+import com.lokesh.composetutorial.extra.animation.AnimatedContent
+import com.lokesh.composetutorial.extra.animation.AnimationScreen
 import com.lokesh.composetutorial.calculator.CalculatorScreen
-import com.lokesh.composetutorial.mediaplayer.MediaScreen
-import com.lokesh.composetutorial.quiz.QuizScreen
+import com.lokesh.composetutorial.extra.DeeplinkScreen
+import com.lokesh.composetutorial.extra.ExtraScreen
+import com.lokesh.composetutorial.extra.mediaplayer.MediaScreen
+import com.lokesh.composetutorial.extra.quiz.QuizScreen
 import com.lokesh.composetutorial.quizOnline.screens.OnlineQuizScreen
 import com.lokesh.composetutorial.quizOnline.screens.QuizCategoryScreen
-import com.lokesh.composetutorial.tweetApp.screens.CategoryScreen
-import com.lokesh.composetutorial.tweetApp.screens.DetailsScreen
+import com.lokesh.composetutorial.extra.tweetApp.screens.CategoryScreen
+import com.lokesh.composetutorial.extra.tweetApp.screens.DetailsScreen
 
 @Composable
 fun RootNavigation(navController: NavHostController,paddingValues: PaddingValues,snackbarHostState: SnackbarHostState) {
@@ -40,6 +42,12 @@ fun RootNavigation(navController: NavHostController,paddingValues: PaddingValues
 
         composable(Screens.NavigatorScreen.route){
             NavigatorScreen(navController)
+        }
+
+        navigation(startDestination = Screens.ExtraScreen.route,route = Graphs.ExtraGraph.route){
+            composable(Screens.ExtraScreen.route){
+                ExtraScreen(navController)
+            }
         }
 
 
@@ -59,10 +67,10 @@ fun RootNavigation(navController: NavHostController,paddingValues: PaddingValues
 
         navigation(startDestination = Screens.CalculatorScreen.route, route = Graphs.CalculatorGraph.route) {
             composable(Screens.CalculatorScreen.route,
-                enterTransition = { slideInHorizontally() + fadeIn() },
-                exitTransition = { slideOutHorizontally()+ fadeOut() },
-                popEnterTransition = { slideInHorizontally() + fadeIn() },
-                popExitTransition = { slideOutHorizontally()+ fadeOut() }) {
+                enterTransition = {  fadeIn() },
+                exitTransition = { fadeOut() },
+                popEnterTransition = {  fadeIn() },
+                popExitTransition = {  fadeOut() }) {
 
                 CalculatorScreen()
 
@@ -167,6 +175,7 @@ sealed class Graphs(val route : String){
     data object CalculatorGraph : Graphs(route = "calculator_graph")
     data object QuizGraph : Graphs(route = "quiz_graph")
     data object OnlineQuiz : Graphs(route = "online_quiz_graph")
+    data object ExtraGraph : Graphs(route = "extra_graph")
 }
 
 sealed class Screens(val route: String){
@@ -183,5 +192,7 @@ sealed class Screens(val route: String){
     data object MediaScreen : Screens(route = "media_screen")
     data object QuizCategoryScreen : Screens(route = "quiz_category_screen")
     data object OnlineQuizScreen : Screens(route = "online_quiz_screen")
+    data object ExtraScreen : Screens(route = "extraScreen")
+
 
 }

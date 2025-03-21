@@ -1,7 +1,7 @@
 package com.lokesh.composetutorial
 
-import com.lokesh.composetutorial.tweetApp.network.TweetApi
-import com.lokesh.composetutorial.tweetApp.repository.TweetRepository
+import com.lokesh.composetutorial.extra.tweetApp.network.TweetApi
+import com.lokesh.composetutorial.extra.tweetApp.repository.TweetRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

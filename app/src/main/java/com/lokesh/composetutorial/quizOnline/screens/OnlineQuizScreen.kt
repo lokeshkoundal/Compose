@@ -6,6 +6,7 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -54,8 +55,8 @@ import androidx.core.text.HtmlCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.lokesh.composetutorial.R
-import com.lokesh.composetutorial.quiz.composeElements.AnswerUI
-import com.lokesh.composetutorial.quiz.model.Answer
+import com.lokesh.composetutorial.extra.quiz.composeElements.AnswerUI
+import com.lokesh.composetutorial.extra.quiz.model.Answer
 import com.lokesh.composetutorial.quizOnline.viewModel.OnlineQuizVM
 
 @Composable
@@ -93,11 +94,14 @@ fun OnlineQuizScreen2(
     val quizQuestions by onlineQuizVM.quizQuestions.collectAsState()
     val isQuizFinished by onlineQuizVM.isQuizFinished.collectAsState()
     val score by onlineQuizVM.scored.collectAsState()
+    val isDark = isSystemInDarkTheme()
 
 
     Scaffold(
         topBar = {TopBar(navController,quizQuestions.size,currentQuestionIndex,quizQuestions[currentQuestionIndex].difficulty)},
-        bottomBar = {BottomBar(onlineQuizVM)}
+        bottomBar = {BottomBar(onlineQuizVM)},
+        containerColor = if(isDark) Color(0xFF343434)
+                            else Color.White,
 
     ) {paddingValues ->
 
@@ -232,7 +236,7 @@ fun BottomBar(onlineQuizVM: OnlineQuizVM) {
 
         OutlinedButton(onClick = {onlineQuizVM.previousQuestion()},
             modifier = Modifier.weight(0.5f).padding(4.dp)) {
-            Text("Previous", color = Color(0xFF3F51B5))
+            Text("Previous", color = if(isSystemInDarkTheme()) Color.White else Color.Black)
         }
 
         Button(onClick = { if(!lastQState){

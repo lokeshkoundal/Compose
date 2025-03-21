@@ -1,7 +1,6 @@
 package com.lokesh.composetutorial.quizOnline.viewModel
 
 import android.util.Log
-import androidx.core.text.HtmlCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.lokesh.composetutorial.quizOnline.models.QuizResponse.Result
@@ -39,7 +38,6 @@ class OnlineQuizVM @Inject constructor(private val quizRepository: QuizRepositor
         viewModelScope.launch {
             isLoading.emit(true)
             try {
-
                 val res = if(categoryId==-1){
                     quizRepository.getRandomQuestions()
                 }else{
@@ -110,8 +108,4 @@ class OnlineQuizVM @Inject constructor(private val quizRepository: QuizRepositor
     }
 
 
-}
-
-fun parseHtmlToText(html: String): String {
-    return HtmlCompat.fromHtml(html, HtmlCompat.FROM_HTML_MODE_LEGACY).toString()
 }

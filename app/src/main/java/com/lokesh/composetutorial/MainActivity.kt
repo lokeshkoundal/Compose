@@ -10,7 +10,7 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.remember
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.rememberNavController
-import com.lokesh.composetutorial.tweetApp.viewModels.MainVM
+import com.lokesh.composetutorial.extra.tweetApp.viewModels.MainVM
 import com.lokesh.composetutorial.ui.theme.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
 

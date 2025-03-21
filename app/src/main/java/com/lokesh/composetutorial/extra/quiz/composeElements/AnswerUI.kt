@@ -1,9 +1,10 @@
-package com.lokesh.composetutorial.quizOnline.composeElements
+package com.lokesh.composetutorial.extra.quiz.composeElements
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.togetherWith
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -21,13 +22,16 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.lokesh.composetutorial.extra.quiz.model.Answer
+import com.lokesh.composetutorial.quizOnline.screens.parseHtmlToText
 
 @Composable
 fun AnswerUI(answer: Answer, isSelected: Boolean, isCorrect: Boolean, onClick: (selectedAnswer: Answer) -> Unit) {
+    val isDark = isSystemInDarkTheme()
     Surface(
         shape = MaterialTheme.shapes.extraSmall,
         modifier = Modifier.fillMaxWidth(),
-        color = if(!isSelected) Color.White
+        color = if(!isSelected&&isDark) Color.Black
+                    else if(!isSelected) Color.White
                     else if(isCorrect)Color(0xFF54B659)
                         else Color(0xFFFA776B),
         shadowElevation = 8.dp,
@@ -39,7 +43,7 @@ fun AnswerUI(answer: Answer, isSelected: Boolean, isCorrect: Boolean, onClick: (
                 AnimatedContent(targetState = answer.text,
                     modifier = Modifier.weight(1f),
                     transitionSpec = { fadeIn().togetherWith(fadeOut()) }) {
-                    Text(it, fontFamily = FontFamily.SansSerif, fontWeight = FontWeight.Medium)
+                    Text(parseHtmlToText(it), fontFamily = FontFamily.SansSerif, fontWeight = FontWeight.Medium)
 
                 }
 
@@ -48,8 +52,8 @@ fun AnswerUI(answer: Answer, isSelected: Boolean, isCorrect: Boolean, onClick: (
                     selected = isSelected,
                     onClick = {onClick(answer)},
                     colors = RadioButtonColors(
-                        selectedColor = Color.Black,
-                        unselectedColor = Color.Black,
+                        selectedColor = Color(0xFF0E7DD7),
+                        unselectedColor = if(isDark) Color.White else Color.Black,
                         disabledSelectedColor = Color.Black,
                         disabledUnselectedColor = Color.Black
 
