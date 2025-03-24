@@ -58,7 +58,6 @@ fun NavigatorScreen(navController: NavController) {
                 .verticalScroll(rememberScrollState())) {
 
 
-
                 NavButton(
                     onClick = { navController.navigate(Graphs.CalculatorGraph.route) },
                     name = "Calculator",

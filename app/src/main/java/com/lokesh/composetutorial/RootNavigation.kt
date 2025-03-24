@@ -17,19 +17,20 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
 import androidx.navigation.navigation
+import com.lokesh.composetutorial.calculator.CalculatorScreen
+import com.lokesh.composetutorial.extra.DeeplinkScreen
+import com.lokesh.composetutorial.extra.ExtraScreen
 import com.lokesh.composetutorial.extra.animation.AnimateColorAndShape
 import com.lokesh.composetutorial.extra.animation.AnimateVisibility
 import com.lokesh.composetutorial.extra.animation.AnimatedContent
 import com.lokesh.composetutorial.extra.animation.AnimationScreen
-import com.lokesh.composetutorial.calculator.CalculatorScreen
-import com.lokesh.composetutorial.extra.DeeplinkScreen
-import com.lokesh.composetutorial.extra.ExtraScreen
 import com.lokesh.composetutorial.extra.mediaplayer.MediaScreen
 import com.lokesh.composetutorial.extra.quiz.QuizScreen
-import com.lokesh.composetutorial.quizOnline.screens.OnlineQuizScreen
-import com.lokesh.composetutorial.quizOnline.screens.QuizCategoryScreen
 import com.lokesh.composetutorial.extra.tweetApp.screens.CategoryScreen
 import com.lokesh.composetutorial.extra.tweetApp.screens.DetailsScreen
+import com.lokesh.composetutorial.quizOnline.screens.OnlineQuizScreen
+import com.lokesh.composetutorial.quizOnline.screens.QuizCategoryScreen
+import com.lokesh.composetutorial.quizOnline.screens.QuizHistoryScreen
 
 @Composable
 fun RootNavigation(navController: NavHostController,paddingValues: PaddingValues,snackbarHostState: SnackbarHostState) {
@@ -38,33 +39,11 @@ fun RootNavigation(navController: NavHostController,paddingValues: PaddingValues
         navController = navController,
         startDestination = Screens.NavigatorScreen.route
     ) {
-
-
         composable(Screens.NavigatorScreen.route){
             NavigatorScreen(navController)
         }
 
-        navigation(startDestination = Screens.ExtraScreen.route,route = Graphs.ExtraGraph.route){
-            composable(Screens.ExtraScreen.route){
-                ExtraScreen(navController)
-            }
-        }
-
-
-        navigation(startDestination = Screens.AnimationScreen.route, route = Graphs.AnimationGraph.route) {
-            composable(Screens.AnimationScreen.route,
-                enterTransition = { slideInHorizontally() + fadeIn() },
-                exitTransition = { slideOutHorizontally()+ fadeOut() },
-                popEnterTransition = { slideInHorizontally() + fadeIn() },
-                popExitTransition = { slideOutHorizontally()+ fadeOut() }) {
-                AnimationScreen(navController)
-            }
-
-            composable(Screens.AnimateVisibilityScreen.route) { AnimateVisibility() }
-            composable(Screens.AnimateColorAndShapeScreen.route) { AnimateColorAndShape() }
-            composable(Screens.AnimatedContentScreen.route) { AnimatedContent() }
-        }
-
+        //Calculator
         navigation(startDestination = Screens.CalculatorScreen.route, route = Graphs.CalculatorGraph.route) {
             composable(Screens.CalculatorScreen.route,
                 enterTransition = {  fadeIn() },
@@ -77,33 +56,78 @@ fun RootNavigation(navController: NavHostController,paddingValues: PaddingValues
             }
         }
 
-        navigation(startDestination = Screens.CategoryScreen.route, route = Graphs.TweetsGraph.route) {
-            val animateDuration = 300
 
-            composable(route = Screens.CategoryScreen.route,
-                enterTransition = { slideInHorizontally() + fadeIn() },
-                exitTransition = { slideOutHorizontally()+ fadeOut() },
-                popEnterTransition = { slideInHorizontally() + fadeIn() },
-                popExitTransition = { slideOutHorizontally()+ fadeOut() }) {
-                CategoryScreen{ category->
-                    navController.navigate( Screens.DetailsScreen.route + "/${category}")
+        //Online Quiz
+        navigation(startDestination = Screens.QuizCategoryScreen.route, route = Graphs.OnlineQuiz.route){
+            composable(route = Screens.QuizCategoryScreen.route,
+                enterTransition = { fadeIn()},
+                exitTransition = { fadeOut() },) {
+                QuizCategoryScreen(navController = navController){categoryId->
+                    navController.navigate(Screens.OnlineQuizScreen.route + "/${categoryId}")
                 }
             }
 
-            composable(route = Screens.DetailsScreen.route + "/{category}",
+            composable(route = Screens.OnlineQuizScreen.route + "/{categoryId}",
                 arguments = listOf(
-                    navArgument("category"){
-                        type = NavType.StringType
-                    }
-                ),
-                enterTransition = { fadeIn(tween(animateDuration)) },
-                exitTransition = { fadeOut(tween(animateDuration)) },
-                popEnterTransition = { fadeIn(tween(animateDuration)) },
-                popExitTransition = { fadeOut(tween(animateDuration)) }
-            ) {
-                DetailsScreen()
+                    navArgument("categoryId"){type = NavType.IntType}
+                )
+            ){ navBackStackEntry ->
+                val categoryId = navBackStackEntry.arguments?.getInt("categoryId")?:-1
+                OnlineQuizScreen(categoryId,navController)
+            }
+
+            composable(route = Screens.QuizHistoryScreen.route ){
+                QuizHistoryScreen(navController)
             }
         }
+
+        //See more
+        navigation(startDestination = Screens.ExtraScreen.route,route = Graphs.ExtraGraph.route){
+            composable(Screens.ExtraScreen.route){
+                ExtraScreen(navController)
+            }
+
+            navigation(startDestination = Screens.AnimationScreen.route, route = Graphs.AnimationGraph.route) {
+                composable(Screens.AnimationScreen.route,
+                    enterTransition = { slideInHorizontally() + fadeIn() },
+                    exitTransition = { slideOutHorizontally()+ fadeOut() },
+                    popEnterTransition = { slideInHorizontally() + fadeIn() },
+                    popExitTransition = { slideOutHorizontally()+ fadeOut() }) {
+                    AnimationScreen(navController)
+                }
+
+                composable(Screens.AnimateVisibilityScreen.route) { AnimateVisibility() }
+                composable(Screens.AnimateColorAndShapeScreen.route) { AnimateColorAndShape() }
+                composable(Screens.AnimatedContentScreen.route) { AnimatedContent() }
+            }
+
+            navigation(startDestination = Screens.CategoryScreen.route, route = Graphs.TweetsGraph.route) {
+                val animateDuration = 300
+
+                composable(route = Screens.CategoryScreen.route,
+                    enterTransition = { slideInHorizontally() + fadeIn() },
+                    exitTransition = { slideOutHorizontally()+ fadeOut() },
+                    popEnterTransition = { slideInHorizontally() + fadeIn() },
+                    popExitTransition = { slideOutHorizontally()+ fadeOut() }) {
+                    CategoryScreen{ category->
+                        navController.navigate( Screens.DetailsScreen.route + "/${category}")
+                    }
+                }
+
+                composable(route = Screens.DetailsScreen.route + "/{category}",
+                    arguments = listOf(
+                        navArgument("category"){
+                            type = NavType.StringType
+                        }
+                    ),
+                    enterTransition = { fadeIn(tween(animateDuration)) },
+                    exitTransition = { fadeOut(tween(animateDuration)) },
+                    popEnterTransition = { fadeIn(tween(animateDuration)) },
+                    popExitTransition = { fadeOut(tween(animateDuration)) }
+                ) {
+                    DetailsScreen()
+                }
+            }
 
             composable(route = Screens.DeeplinkScreen.route,
                 deepLinks = listOf(navDeepLink {
@@ -124,46 +148,32 @@ fun RootNavigation(navController: NavHostController,paddingValues: PaddingValues
             }
 
 
-        navigation(startDestination = Screens.QuizScreen.route, route = Graphs.QuizGraph.route) {
-            composable(route = Screens.QuizScreen.route,
-                enterTransition = {slideInHorizontally() + fadeIn()},
-                exitTransition = { slideOutHorizontally() + fadeOut() },
-                popEnterTransition = {slideInHorizontally() + fadeIn()},
-                popExitTransition = {slideOutHorizontally() + fadeOut()},
-            ) {
-                QuizScreen(navController,snackbarHostState, rememberCoroutineScope())
-            }
-        }
-
-        composable(route = Screens.MediaScreen.route,
-            enterTransition = {slideInHorizontally() + fadeIn()},
-            exitTransition = { slideOutHorizontally() + fadeOut() },
-            popEnterTransition = {slideInHorizontally() + fadeIn()},
-            popExitTransition = {slideOutHorizontally() + fadeOut()}){
-
-            MediaScreen()
-        }
-
-        navigation(startDestination = Screens.QuizCategoryScreen.route, route = Graphs.OnlineQuiz.route){
-            composable(route = Screens.QuizCategoryScreen.route,
-                enterTransition = { fadeIn()},
-                exitTransition = { fadeOut() },) {
-                QuizCategoryScreen(navController = navController){categoryId->
-                    navController.navigate(Screens.OnlineQuizScreen.route + "/${categoryId}")
+            navigation(startDestination = Screens.QuizScreen.route, route = Graphs.QuizGraph.route) {
+                composable(route = Screens.QuizScreen.route,
+                    enterTransition = {slideInHorizontally() + fadeIn()},
+                    exitTransition = { slideOutHorizontally() + fadeOut() },
+                    popEnterTransition = {slideInHorizontally() + fadeIn()},
+                    popExitTransition = {slideOutHorizontally() + fadeOut()},
+                ) {
+                    QuizScreen(navController,snackbarHostState, rememberCoroutineScope())
                 }
             }
 
-            composable(route = Screens.OnlineQuizScreen.route + "/{categoryId}",
-                arguments = listOf(
-                    navArgument("categoryId"){type = NavType.IntType}
-                )
-            ){ navBackStackEntry ->
-                val categoryId = navBackStackEntry.arguments?.getInt("categoryId")?:-1
-                OnlineQuizScreen(categoryId,navController)
+            composable(route = Screens.MediaScreen.route,
+                enterTransition = {slideInHorizontally() + fadeIn()},
+                exitTransition = { slideOutHorizontally() + fadeOut() },
+                popEnterTransition = {slideInHorizontally() + fadeIn()},
+                popExitTransition = {slideOutHorizontally() + fadeOut()}){
 
-
+                MediaScreen()
             }
+
         }
+
+
+
+
+
 
 
     }
@@ -193,6 +203,6 @@ sealed class Screens(val route: String){
     data object QuizCategoryScreen : Screens(route = "quiz_category_screen")
     data object OnlineQuizScreen : Screens(route = "online_quiz_screen")
     data object ExtraScreen : Screens(route = "extraScreen")
-
+    data object QuizHistoryScreen : Screens(route = "quizHistoryScreen")
 
 }

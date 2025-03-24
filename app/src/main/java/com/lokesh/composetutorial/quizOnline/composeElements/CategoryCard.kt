@@ -5,17 +5,13 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
@@ -54,7 +50,7 @@ fun CategoryCard(modifier: Modifier = Modifier,image : Int,name : String,colors:
 
     LaunchedEffect(isPressed) {
         if (isPressed) {
-            delay(80) // Short delay for bounce effect
+            delay(40) // Short delay for bounce effect
             isPressed = false
         }
     }
@@ -67,9 +63,8 @@ fun CategoryCard(modifier: Modifier = Modifier,image : Int,name : String,colors:
                 .then(modifier)
                 .graphicsLayer(scaleX = scale, scaleY = scale) // Apply scaling
                 .combinedClickable(
-                    interactionSource = remember { MutableInteractionSource() },
-                    indication = null, // Removes default ripple effect
-
+//                    interactionSource = remember { MutableInteractionSource() },
+//                    indication = null, // Removes default ripple effect
                     onLongClick = {
                         isPressed = true
                     },

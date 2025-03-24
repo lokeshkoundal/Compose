@@ -2,6 +2,7 @@ package com.lokesh.composetutorial.quizOnline.screens
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -14,15 +15,18 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.CardDefaults.cardColors
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
@@ -30,6 +34,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.lokesh.composetutorial.R
+import com.lokesh.composetutorial.Screens
 import com.lokesh.composetutorial.quizOnline.composeElements.CategoryCard
 import com.lokesh.composetutorial.quizOnline.viewModel.QuizCategoryVM
 
@@ -61,24 +66,39 @@ fun QuizCategoryScreen(navController: NavHostController,onCategoryClick: (Int) -
 
         Spacer(Modifier.height(20.dp))
 
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(2),
-            modifier = Modifier.fillMaxSize(),
-//            contentPadding = PaddingValues(8.dp)
-        ) {
-            items(quizCategories){quizCategory ->
-                CategoryCard(
-                    image = quizCategory.image,
-                    name = quizCategory.name,
-                    colors = cardColors(
-                        containerColor = quizCategory.cardColor
-                    ),
-                    textColor = quizCategory.textColor,
-                    onClick = {
-                        onCategoryClick(quizCategory.categoryID)
-                    }
+        Box(modifier = Modifier.fillMaxSize()){
 
-                )
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(2),
+                modifier = Modifier.fillMaxSize(),
+//                contentPadding = PaddingValues(8.dp)
+            ) {
+                items(quizCategories){quizCategory ->
+                    CategoryCard(
+                        image = quizCategory.image,
+                        name = quizCategory.name,
+                        colors = cardColors(
+                            containerColor = quizCategory.cardColor
+                        ),
+                        textColor = quizCategory.textColor,
+                        onClick = {
+                            onCategoryClick(quizCategory.categoryID)
+                        }
+
+                    )
+                }
+            }
+
+            FloatingActionButton(onClick = {navController.navigate(Screens.QuizHistoryScreen.route)},
+                shape = RoundedCornerShape(14.dp),
+                containerColor = Color(0xFF2962FF),
+                modifier = Modifier.align(Alignment.BottomEnd)
+                    .padding(8.dp),
+            ) {
+                Text(text = "See History", color = Color.White,
+                    modifier = Modifier.padding(horizontal = 2.dp),
+                    fontFamily = FontFamily(Font(R.font.nunito_bold))
+                    )
             }
         }
     }
