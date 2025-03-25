@@ -2,21 +2,23 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.compose.compiler)
-    id ("kotlin-kapt")
+//    id ("kotlin-kapt")
     id("com.google.dagger.hilt.android")
     id("androidx.navigation.safeargs.kotlin")
     kotlin("plugin.serialization") version "2.0.21"
+    id ("com.google.devtools.ksp")
+
 
 }
 
 android {
     namespace = "com.lokesh.composetutorial"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.lokesh.composetutorial"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -24,6 +26,7 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
     }
 
     buildTypes {
@@ -58,6 +61,11 @@ android {
 
 dependencies {
 
+    //RoomDB
+    implementation (libs.androidx.room.room.runtime)
+    ksp(libs.androidx.room.compiler)
+    implementation (libs.androidx.room.ktx)
+
     //media3  - video playback and editing
     implementation(libs.medi3.exoplayer)
     implementation(libs.androidx.media3.ui)
@@ -69,7 +77,7 @@ dependencies {
     //hilt - Dependency Injection
     implementation(libs.hilt.android)
     implementation(libs.androidx.runtime.livedata)
-    kapt(libs.hilt.android.compiler)
+    ksp(libs.hilt.android.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
 
     //retrofit - API fetching

@@ -31,18 +31,16 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.lokesh.composetutorial.Constants
 import com.lokesh.composetutorial.R
 import com.lokesh.composetutorial.Screens
 import com.lokesh.composetutorial.quizOnline.composeElements.CategoryCard
-import com.lokesh.composetutorial.quizOnline.viewModel.QuizCategoryVM
 
 @Composable
 fun QuizCategoryScreen(navController: NavHostController,onCategoryClick: (Int) -> Unit) {
 
-    val quizVM : QuizCategoryVM = hiltViewModel()
-    val quizCategories = quizVM.quizCategories
+    val quizCategories = Constants.quizCategories
 
     Column(horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.fillMaxSize().padding(12.dp)) {

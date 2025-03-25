@@ -242,7 +242,7 @@ fun BottomBar(onlineQuizVM: OnlineQuizVM) {
         Button(onClick = { if(!lastQState){
             onlineQuizVM.nextQuestion()
         } else {
-            onlineQuizVM.calculateScore()
+            onlineQuizVM.calculateScoreAndSaveToDB()
         } },
             modifier = Modifier.weight(0.5f).padding(4.dp),
             colors = ButtonDefaults.buttonColors(if(lastQState) Color(  0xFF4CAF50) else Color(

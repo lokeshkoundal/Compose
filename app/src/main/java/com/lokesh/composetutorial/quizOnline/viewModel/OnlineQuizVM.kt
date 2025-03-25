@@ -3,7 +3,9 @@ package com.lokesh.composetutorial.quizOnline.viewModel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.lokesh.composetutorial.quizOnline.database.QuizResult
 import com.lokesh.composetutorial.quizOnline.models.QuizResponse.Result
+import com.lokesh.composetutorial.quizOnline.repository.QuizHistoryRepository
 import com.lokesh.composetutorial.quizOnline.repository.QuizRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -11,7 +13,9 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class OnlineQuizVM @Inject constructor(private val quizRepository: QuizRepository) : ViewModel() {
+class OnlineQuizVM @Inject constructor(private val quizRepository: QuizRepository,
+                                       private val quizHistoryRepository: QuizHistoryRepository
+) : ViewModel() {
 
 
     var quizQuestions  = MutableStateFlow<List<Result>>(emptyList())
@@ -32,6 +36,8 @@ class OnlineQuizVM @Inject constructor(private val quizRepository: QuizRepositor
     var scored = MutableStateFlow(0)
         private set
 
+    private var currentQuizCategoryId = MutableStateFlow(-1)
+
 
 
     fun getQuestions(categoryId: Int) {
@@ -49,6 +55,8 @@ class OnlineQuizVM @Inject constructor(private val quizRepository: QuizRepositor
                     }
                     if (updatedList != null) {
                         quizQuestions.emit(updatedList)
+                        currentQuizCategoryId = MutableStateFlow(categoryId)
+
                     }
                 }
 
@@ -64,7 +72,7 @@ class OnlineQuizVM @Inject constructor(private val quizRepository: QuizRepositor
     }
 
 
-    fun calculateScore() {
+    fun calculateScoreAndSaveToDB() {
         var score = 0
         quizQuestions.value.forEach { question ->
             if (question.selectedAnswer == question.correct_answer) {
@@ -73,6 +81,16 @@ class OnlineQuizVM @Inject constructor(private val quizRepository: QuizRepositor
         }
         scored.value = score
         isQuizFinished.value = true
+
+        viewModelScope.launch {
+            quizHistoryRepository.insert(
+                QuizResult(
+                    correctAnswers = score,
+                    wrongAnswers = quizQuestions.value.size - score,
+                    categoryId = currentQuizCategoryId.value
+                )
+            )
+        }
 
 
     }

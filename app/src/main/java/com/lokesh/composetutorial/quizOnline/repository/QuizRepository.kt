@@ -16,4 +16,6 @@ class QuizRepository @Inject constructor(private val quizApiService: QuizApiServ
         val res =  quizApiService.getRandomQuestions()
         return res
     }
+
+
 }
