@@ -25,7 +25,7 @@ object Constants {
             QuizCategoryData(23, R.drawable.ic_history, "History", Color(0xFF79574C), Color.White),
             QuizCategoryData(24, R.drawable.ic_politics, "Politics", Color(0xFFE35656), Color.White),
             QuizCategoryData(25, R.drawable.ic_art, "Art", Color(0xFFFF4081), Color.Black),
-            QuizCategoryData(26, R.drawable.ic_kotlin, "Celebrities", Color(0xFFD2BD50), Color.Black),
+            QuizCategoryData(26, R.drawable.ic_celebrity, "Celebrities", Color(0xFFD2BD50), Color.Black),
             QuizCategoryData(27, R.drawable.ic_animals, "Animals", Color(0xFF439B47), Color.White),
             QuizCategoryData(28, R.drawable.ic_vehicle, "Vehicles", Color(0xFF5393D2), Color.White),
             QuizCategoryData(29, R.drawable.ic_comics, "Comics", Color(0xFFC44F4F), Color.Black),

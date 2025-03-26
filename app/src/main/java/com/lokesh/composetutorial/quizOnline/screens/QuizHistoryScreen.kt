@@ -1,5 +1,6 @@
 package com.lokesh.composetutorial.quizOnline.screens
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -20,6 +21,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.sharp.ArrowBack
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ElevatedCard
@@ -27,6 +30,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -43,6 +48,7 @@ import androidx.navigation.NavController
 import com.lokesh.composetutorial.Constants
 import com.lokesh.composetutorial.R
 import com.lokesh.composetutorial.quizOnline.viewModel.QuizHistoryVM
+import kotlinx.coroutines.flow.MutableStateFlow
 
 
 @Composable
@@ -50,6 +56,28 @@ fun QuizHistoryScreen(navController: NavController) {
     val quizHistoryVM : QuizHistoryVM = hiltViewModel()
     val quizHistoryList = quizHistoryVM.quizHistoryList.collectAsState()
     val isLoading = quizHistoryVM.isLoading.collectAsState()
+    val isVerifyDeleteDialogShowing = remember { mutableStateOf(false) }
+
+    if(isVerifyDeleteDialogShowing.value){
+            AlertDialog(
+                onDismissRequest = {isVerifyDeleteDialogShowing.value = false},
+                title = { Text("Alert") },
+                text = { Text("Are you sure you want to Empty history?") },
+                confirmButton = {
+                    Button(onClick = { quizHistoryVM.emptyQuizHistory()
+                                        isVerifyDeleteDialogShowing.value=false}) {
+                        Text("Yes")
+                    }
+                },
+                dismissButton = {
+                    Button(onClick = {isVerifyDeleteDialogShowing.value = false}) {
+                        Text("Cancel")
+                    }
+
+                }
+            )
+
+    }
 
     Column(Modifier.fillMaxSize().padding(6.dp)) {
 
@@ -71,15 +99,29 @@ fun QuizHistoryScreen(navController: NavController) {
             Icon(
                 imageVector = Icons.Default.Delete, contentDescription = "Empty History",
                 modifier = Modifier.align(Alignment.CenterEnd)
-                    .padding(4.dp)
+                    .padding(8.dp)
                     .clip(CircleShape)
-                    .clickable { quizHistoryVM.emptyQuizHistory() }
+                    .clickable { if(quizHistoryList.value.isNotEmpty()) isVerifyDeleteDialogShowing.value = true }
             )
         }
         Spacer(modifier = Modifier.height(10.dp))
 
         if (isLoading.value){
             CircularProgressIndicator(modifier = Modifier.align(Alignment.CenterHorizontally))
+        }
+        else if(quizHistoryList.value.isEmpty()){
+            Column(Modifier.fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center) {
+
+                Image(painter = painterResource(id = R.drawable.ic_no_quiz_history),
+                    contentDescription = "No History Found",
+                    modifier = Modifier.size(150.dp))
+
+                Spacer(Modifier.height(10.dp))
+                Text("No History Found", fontFamily = FontFamily(Font(R.font.nunito_bold)),
+                    fontSize = 26.sp)
+            }
         }
         else{
             LazyColumn(Modifier.fillMaxWidth().padding(6.dp)) {
@@ -111,8 +153,9 @@ fun QuizResultCard(iconId :Int,categoryName : String,correctAns : Int,wrongAns:I
             .fillMaxSize()
             .padding(horizontal = 8.dp, vertical = 5.dp),
             verticalAlignment = Alignment.CenterVertically) {
-            Icon(painter = painterResource(iconId),
-                contentDescription = null)
+            Image(painter = painterResource(id = iconId),
+                    contentDescription = null)
+
 
             Spacer(modifier = Modifier.width(8.dp))
 
@@ -123,7 +166,7 @@ fun QuizResultCard(iconId :Int,categoryName : String,correctAns : Int,wrongAns:I
                 Spacer(Modifier.height(6.dp))
 
                 Row {
-                    DiamondCard(correctAns.toString(),Color.Green)
+                    DiamondCard(correctAns.toString(),Color(0xFF43A047))
 
                     Text("Correct Answers",
                         modifier = Modifier.padding(horizontal = 6.dp),
@@ -131,7 +174,7 @@ fun QuizResultCard(iconId :Int,categoryName : String,correctAns : Int,wrongAns:I
 
                     Spacer(Modifier.width(6.dp))
 
-                    DiamondCard(wrongAns.toString(),Color.Red)
+                    DiamondCard(wrongAns.toString(),Color(0xFFE53935))
 
                     Text("Wrong Answers",
                         modifier = Modifier.padding(horizontal = 6.dp),

@@ -179,7 +179,8 @@ fun OnlineQuizScreen2(
                             isSelected = it == quizQuestions[currentQuestionIndex].selectedAnswer,
                             isCorrect = it == quizQuestions[currentQuestionIndex].correct_answer
                         ) {selected->
-                            onlineQuizVM.answerSelected(currentQuestionIndex, selected.text)
+                            if(quizQuestions[currentQuestionIndex].selectedAnswer==null)
+                                onlineQuizVM.answerSelected(currentQuestionIndex, selected.text)
                         }
                         Spacer(Modifier.height(8.dp))
 

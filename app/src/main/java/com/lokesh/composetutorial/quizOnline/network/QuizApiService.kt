@@ -13,6 +13,9 @@ interface QuizApiService {
                              @Query("amount") amount: Int = Constants.TOTAL_QUIZ_QUESN,
                              @Query("type") type : String = "multiple"): Response<QuizResponse>
 
-    @GET("/api.php?amount=15&type=multiple")
-    suspend fun getRandomQuestions():Response<QuizResponse>
+    @GET("/api.php")
+    suspend fun getRandomQuestions(
+        @Query("amount") amount: Int = Constants.TOTAL_QUIZ_QUESN,
+        @Query("type") type : String = "multiple"
+    ):Response<QuizResponse>
 }

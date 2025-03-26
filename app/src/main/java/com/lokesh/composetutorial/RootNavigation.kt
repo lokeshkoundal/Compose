@@ -83,7 +83,12 @@ fun RootNavigation(navController: NavHostController,paddingValues: PaddingValues
 
         //See more
         navigation(startDestination = Screens.ExtraScreen.route,route = Graphs.ExtraGraph.route){
-            composable(Screens.ExtraScreen.route){
+            composable(Screens.ExtraScreen.route,
+                enterTransition = { slideInHorizontally() + fadeIn() },
+                exitTransition = { slideOutHorizontally()+ fadeOut() },
+                popEnterTransition = { slideInHorizontally() + fadeIn() },
+                popExitTransition = { slideOutHorizontally()+ fadeOut() }){
+
                 ExtraScreen(navController)
             }
 

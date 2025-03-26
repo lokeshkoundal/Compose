@@ -68,6 +68,9 @@ fun CategoryCard(modifier: Modifier = Modifier,image : Int,name : String,colors:
                     onLongClick = {
                         isPressed = true
                     },
+                    onDoubleClick = {
+
+                    },
                     onClick = {
                         isPressed = true
                         onClick()
